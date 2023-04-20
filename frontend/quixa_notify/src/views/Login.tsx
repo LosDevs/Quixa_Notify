@@ -1,9 +1,10 @@
+import FormLogin from "../components/FormLogin";
 const Login = ()=> {
-    return(
+    return (
         <div>
-            <h1>LOGIN</h1>
+            <FormLogin></FormLogin>
         </div>
     )
 }
 
-export default Login
+export default Login;

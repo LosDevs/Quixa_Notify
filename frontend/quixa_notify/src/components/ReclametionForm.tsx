@@ -1,6 +1,6 @@
-const ReclametionForm = ()=>{
-    return(
-        <h1>Fromulário de Reclamação</h1>
+const ReclametionForm = ()=> {
+    return (
+        <h1> Fromulário de Reclamação </h1>
     )
 }
 
