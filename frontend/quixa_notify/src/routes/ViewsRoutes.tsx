@@ -1,9 +1,9 @@
 import {Routes, Route} from "react-router-dom"
 
-import Home from "../views/Home"
-import ReclametionForm from "../components/ReclametionForm"
-import Login from "../views/Login"
-import SingUp from "../views/SingUp"
+import Home from "../pages/Home"
+import ReclametionForm from "../components/DemandForm"
+import Login from "../pages/Login"
+import SingUp from "../pages/SingUp"
 
 const ViewsRoutes = ()=> {
     return(
