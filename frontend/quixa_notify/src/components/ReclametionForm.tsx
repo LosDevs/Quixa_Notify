@@ -1,6 +1,10 @@
 const ReclametionForm = ()=> {
     return (
-        <h1> Fromulário de Reclamação </h1>
+        <div>
+            <div></div>
+            <div></div>
+        </div>
+        
     )
 }
 
