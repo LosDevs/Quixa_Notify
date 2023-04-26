@@ -10,6 +10,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Usuario {
+  id Int @id @default(autoincrement())
+  email    String @unique
+  password String
+  name String
+  problema Problema[]
+  @@map("usuario")
+}
+
 model Problema {
   id               Int                @id @default(autoincrement())
   titulo           String
@@ -20,5 +29,7 @@ model Problema {
   nivel_gravidade  Int
   votacao          Int
   created_at       DateTime           @default(now())
+  usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
   @@map("problema")
 }
