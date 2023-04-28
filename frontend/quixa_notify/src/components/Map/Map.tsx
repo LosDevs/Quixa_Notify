@@ -3,10 +3,12 @@ import L from 'leaflet'
 import  "leaflet/dist/leaflet.css"
 import "./Map.css"
 
-// const markerIcon = new L.Icon ({
-//     iconUrl: require(""),
-//     iconSize: [35,45],
-// });
+const markerIcon = new L.Icon ({
+    iconUrl: '../../../node_modules/bootstrap-icons/icons/geo-alt-fill.svg',
+    iconRetinaUrl: '../../../node_modules/bootstrap-icons/icons/geo-alt-fill.svg',
+    iconSize: [35,45],
+    
+});
 
 const Map = ()=> {
 
@@ -16,7 +18,7 @@ const Map = ()=> {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={[-4.97813, -39.0188]}>
+            <Marker position={[-4.97813, -39.0188]} icon={markerIcon}>
                 <Popup>
                 A pretty CSS3 popup. <br /> Easily customizable.
                 </Popup>
