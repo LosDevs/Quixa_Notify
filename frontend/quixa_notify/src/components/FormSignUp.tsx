@@ -8,7 +8,7 @@ const FormSignUp = ()=> {
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
 
-    const handleSubmit =  (event)=> {
+    const handleSubmit =  (event: { preventDefault: () => void })=> {
         event.preventDefault()
         console.log(event)
         console.log(name, email, password)
@@ -18,9 +18,9 @@ const FormSignUp = ()=> {
     return  (
         <div className="row d-felx align-items-center justify-content-envily m-5 p-5">
             <div className="col d-flex align-items-center justify-content-center">
-                <img src="logo.png" alt="" width={200}/>
+                <img src="logo1.png" alt="" width={500}/>
             </div>
-            <form className="col d-flex flex-column " onSubmit={handleSubmit}>
+            <form className="col d-flex flex-column" onSubmit={handleSubmit}>
                 <h2 className="mb-4">Cadastro</h2>  
                 <div className="mb-3 from-group">
                     <label htmlFor="exampleFormControlInput1" className="form-label">Nome completo</label>
@@ -41,7 +41,7 @@ const FormSignUp = ()=> {
                         }/>
                 </div>
                 <div className="mb-3 form-group">
-                    <label htmlFor="inputPassword5" className="form-label">Senha</label>
+                    <label htmlFor="inputPassword5" className="form-label">Crie uma senha</label>
                     <input type="password" id="inputPassword5" className="form-control" aria-labelledby="passwordHelpBlock" 
                             onChange={
                                 (event)=>{
@@ -49,7 +49,19 @@ const FormSignUp = ()=> {
                                 }
                             }/>
                         <div id="passwordHelpBlock" className="form-text">
-                            Sua senha tem que ter de 8 a 20 caractéres, letras maiúsculas, minusculas e números.
+                        Sua senha tem que ter de 8 a 20 caractéres, letras maiúsculas, minusculas e números.
+                        </div>
+                </div>
+                <div className="mb-3 form-group">
+                    <label htmlFor="inputPassword5" className="form-label">Confirme a senha</label>
+                    <input type="password" id="inputPassword5" className="form-control" aria-labelledby="passwordHelpBlock" 
+                            onChange={
+                                (event)=>{
+                                    setPassword(event.target.value)
+                                }
+                            }/>
+                        <div id="passwordHelpBlock" className="form-text">
+                        Sua senha tem que ter de 8 a 20 caractéres, letras maiúsculas, minusculas e números.
                         </div>
                 </div>
                 <div className="form-group mb-3">

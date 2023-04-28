@@ -17,7 +17,7 @@ const FormLogin = ()=> {
     return  (
         <div className="row d-felx align-items-center justify-content-envily m-5 p-5">
             <div className="col d-flex align-items-center justify-content-center">
-                <img src="logo.png" alt="" width={200}/>
+                <img src="logo1.png" alt="" width={500}/>
             </div>
             <form className="col d-flex flex-column " onSubmit={handleSubmit}>
                 <h2 className="mb-4">Login</h2>
