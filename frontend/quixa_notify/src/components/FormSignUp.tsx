@@ -8,7 +8,7 @@ const FormSignUp = ()=> {
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
 
-    const handleSubmit =  (event)=> {
+    const handleSubmit =  (event: { preventDefault: () => void })=> {
         event.preventDefault()
         console.log(event)
         console.log(name, email, password)

@@ -6,7 +6,7 @@ const Home = ()=> {
             <h1>HOME PAGE</h1>
 
             <button type="submit" className='btn btn-lg' >
-                <Link to='reclameitionform'>
+                <Link to='reclamation'>
                     <img src="../../node_modules/bootstrap-icons/icons/exclamation-diamond-fill.svg" alt="" width={"50"}/>
                 </Link>
             </button>
