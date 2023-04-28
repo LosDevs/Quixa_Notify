@@ -2,6 +2,7 @@ import { MapContainer, TileLayer, useMap, Marker, Popup} from 'react-leaflet'
 import L from 'leaflet'
 import  "leaflet/dist/leaflet.css"
 import "./Map.css"
+import useGeoLocation from './useGeoLocation'
 
 const markerIcon = new L.Icon ({
     iconUrl: '../../../node_modules/bootstrap-icons/icons/geo-alt-fill.svg',
@@ -11,19 +12,24 @@ const markerIcon = new L.Icon ({
 });
 
 const Map = ()=> {
-
+    const location = useGeoLocation()
     return(
         <MapContainer center={[-4.97813, -39.0188]} zoom={13} scrollWheelZoom={false}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={[-4.97813, -39.0188]} icon={markerIcon}>
-                <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-                </Popup>
-            </Marker>
+            {location.loaded && !location.error && (
+                <Marker draggable={true} position={[location.cordinates.lat, location.cordinates.lng,]} icon={markerIcon}>
+                    <Popup>
+                    A pretty CSS3 popup. <br /> Easily customizable.
+                        {location.cordinates.lat}, {location.cordinates.lng}
+                    </Popup>
+                </Marker>
+            )}
+        
         </MapContainer>
+        
     )   
         
 }
