@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom'
 
 const Home = ()=> {
     return (
-        <div>
+        <div className='d-flex align-items-center justify-content-center m-5 p-5'>
             <h1>HOME PAGE</h1>
 
             <button type="submit" className='btn btn-lg' >
