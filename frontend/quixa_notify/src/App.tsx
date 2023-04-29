@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import ViewsRoutes from './routes/ViewsRoutes'
 import './App.css'
-import Home from './pages/Home'
 
 function App() {
 
