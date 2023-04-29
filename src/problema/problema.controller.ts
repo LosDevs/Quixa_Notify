@@ -2,32 +2,27 @@ import { ProblemaDto } from './dto/create-problema-dto';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ProblemaService } from './problema.service';
 import { GetEnderecoDto } from './dto/get-endereco-dto';
+import { IsPublic } from 'src/auth/decorators/is-public.decorator';
+import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { User } from 'src/user/entities/user.entity';
 
 
-@Controller('api/v1/problemas')
+@Controller('problemas')
 export class ProblemaController {
   constructor(private readonly problemaService : ProblemaService) {}
 
   @Post()
-  async posProblema(@Body() data : ProblemaDto){
-    return this.problemaService.postProblema(data);
+  async posProblema(@Body() data : ProblemaDto, @CurrentUser() user : User){
+    return this.problemaService.postProblema(data , user.id);
   }
 
+  @IsPublic()
   @Get()
   async getProblemas(){
     return this.problemaService.getProblemas();
   }
 
-  @Get('tipo/:tipo')
-  async getProblemaPorTipo(@Param('tipo') tipo : String){
-      return this.problemaService.getProblemaPorTipo(tipo);
-  }
-
-  @Get('nivel/:nivelGravidade')
-  async getProblemaPorNivelGravidade(@Param('nivelGravidade') nivelGravidade : number){
-      return this.problemaService.getProblemaPorNivelGravidade(nivelGravidade)
-  }
-
+  @IsPublic()
   @Get('cordenadas')
   async getProblemaCordenada(@Body() getEnderecoDto : GetEnderecoDto){
     return this.problemaService.getEnderecoCordenada(getEnderecoDto)

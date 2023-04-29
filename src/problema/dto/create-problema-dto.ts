@@ -30,4 +30,6 @@ export class ProblemaDto {
     @Min(0)
     @Max(1)
     votacao: number;
+
+
 }

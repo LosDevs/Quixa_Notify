@@ -3,69 +3,63 @@ import { PrismaService } from 'src/database/prisma.service';
 import { GetEnderecoDto } from './dto/get-endereco-dto';
 
 @Injectable()
-export class ProblemaService{
-    constructor (private prisma : PrismaService){}
+export class ProblemaService {
+    constructor(private prisma: PrismaService) { }
 
-    async postProblema(problema){
+    async postProblema(problema, idUsuario) {
         try {
+            const {
+                titulo,
+                longitude,
+                latitude,
+                endereco,
+                tipo_problema,
+                nivel_gravidade,
+                votacao,
+            } = problema
             await this.prisma.problema.create({
-                data : problema
+                data: {
+                    titulo: String(titulo),
+                    longitude : String(longitude),
+                    latitude : String(latitude),
+                    endereco : String(endereco),
+                    tipo_problema : String(tipo_problema),
+                    nivel_gravidade : Number(nivel_gravidade),
+                    votacao : Number(votacao),
+                    usuario:{
+                        connect :  {id : Number(idUsuario)}
+                    } ,
+                }
             })
-            return {message : 'Problema criado com sucesso'}
+            return { message: 'Problema criado com sucesso' }
         } catch (error) {
-            return {message : 'aconteceu algum problema', error}
+            return { message: 'aconteceu algum problema' + error }
         }
     }
 
-    async getProblemas(){
+    async getProblemas() {
         try {
-            const problemas =  await this.prisma.problema.findMany();
+            const problemas = await this.prisma.problema.findMany({
+                include : {usuario : true},
+            });
+
             return problemas
         } catch (error) {
-            return {message : 'aconteceu algum problema', error}
+            return { message: 'aconteceu algum problema', error }
         }
     }
 
-    async getProblemaPorTipo(tipo : String){
-        try {
-            const problemaTipo = await this.prisma.problema.findMany({
-                where : {
-                    tipo_problema : {
-                        contains : `${tipo}`,
-                        mode : 'insensitive'
-                    }
-                }
-            })
-            return problemaTipo
-        } catch (error) {
-            return {message : 'aconteceu algum problema', error}
-        }
-    }
-
-    async getProblemaPorNivelGravidade(nivel){
-        try {
-            const problemaNivel = await this.prisma.problema.findMany({
-                where : {
-                    nivel_gravidade: parseInt(nivel)
-                }
-            })
-            return problemaNivel
-        } catch (error) {
-            return {message : 'aconteceu algum problema', error}
-        }
-    }
-
-    async getEnderecoCordenada(cords : GetEnderecoDto){
+    async getEnderecoCordenada(cords: GetEnderecoDto) {
         try {
             const Problema = await this.prisma.problema.findFirst({
-                where : {
-                    longitude : `${cords.longitude}`,
-                    latitude : `${cords.latitude}`
+                where: {
+                    longitude: `${cords.longitude}`,
+                    latitude: `${cords.latitude}`
                 }
             })
             return Problema
         } catch (error) {
-            return {message : 'aconteceu algum problema', error}
+            return { message: 'aconteceu algum problema', error }
         }
     }
 }
