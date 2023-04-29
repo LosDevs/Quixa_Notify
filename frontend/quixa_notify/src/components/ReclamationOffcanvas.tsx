@@ -1,11 +1,10 @@
+import FormRaclamation from './FormReclamation'
 import Map from './Map/Map'
 
-const ReclamationForm = ()=> {
+const ReclamationOffcanvas = ()=> {
     return (
         // Tipos de reclamação
-        <div className='m-3'>
-            <h1>Formulário de Reclamação</h1>
-            <Map></Map>     
+        <div className='m-3'>  
             <button className="btn btn-primary m-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasList" aria-controls="offcanvasList">Listar</button>
 
             <div className="offcanvas offcanvas-end" data-bs-show="true" data-bs-scroll="true" data-bs-backdrop="false" tabIndex={-1} id="offcanvasList" aria-labelledby="offcanvasListLabel">
@@ -27,10 +26,11 @@ const ReclamationForm = ()=> {
                 </div>
                 <div className="offcanvas-body">
                     <p>Fazer o formulário de reclamaçãoa aqui.</p>
+                    <FormRaclamation></FormRaclamation>
                 </div>
             </div>
         </div>
     )
 }
 
-export default ReclamationForm
+export default ReclamationOffcanvas

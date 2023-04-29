@@ -7,7 +7,7 @@ const FormLogin = ()=> {
     const [password, setPassword] = useState('')
     const navigate = useNavigate()
 
-    const handleSubmit =  (event)=> {
+    const handleSubmit =  (event: { preventDefault: () => void })=> {
         event.preventDefault()
         console.log(event)
         console.log(email, password)
@@ -22,7 +22,7 @@ const FormLogin = ()=> {
             <form className="col d-flex flex-column " onSubmit={handleSubmit}>
                 <h2 className="mb-4">Login</h2>
                 <div className="mb-3 from-group">
-                    <label htmlFor="exampleFormControlInput1" className="form-label">Email</label>
+                    <label htmlFor="exampleFormControlInput1" className="form-label">Email  </label>
                     <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@exemplo.com"  
                             onChange={
                                 (event)=>{

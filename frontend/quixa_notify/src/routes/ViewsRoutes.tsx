@@ -1,7 +1,7 @@
 import {Routes, Route} from "react-router-dom"
 
 import Home from "../pages/Home"
-import ReclametionForm from "../components/ReclamationForm"
+import ReclametionForm from "../components/ReclamationOffcanvas"
 import Login from "../pages/Login"
 import SingUp from "../pages/SingUp"
 import Reclamation from "../pages/Reclamation"
