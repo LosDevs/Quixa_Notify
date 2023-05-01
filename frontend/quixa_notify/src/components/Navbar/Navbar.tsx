@@ -1,45 +1,31 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 
-function ColorSchemesExample() {
+import {NavLink, Link } from 'react-router-dom';
+import './Navbar.css';
+import {BsHouseDoorFill} from "react-icons/bs"
+
+
+
+function NavbarAuth() {
   return (
-    <>
-      <Navbar bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
-      <br />
-      <Navbar bg="primary" variant="dark">
-        <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
-
-      <br />
-      <Navbar bg="light" variant="light">
-        <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
-    </>
+    <nav id='nav'>
+      <Link to="/">QuixaNotify</Link>
+      <ul id='nav-links'>
+        <li>
+          <NavLink to="/">
+            <BsHouseDoorFill/>
+          </NavLink>
+        </li>
+        <li><NavLink to="/login">
+          Login
+        </NavLink></li>
+        <li>
+          <NavLink to="/signup" >
+          Cadastre-se
+        </NavLink>
+        </li>
+      </ul>
+    </nav>
   );
 }
 
-export default ColorSchemesExample;
+export default NavbarAuth;

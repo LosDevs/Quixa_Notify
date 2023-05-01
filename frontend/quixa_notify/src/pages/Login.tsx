@@ -1,13 +1,15 @@
-import { Navbar } from "react-bootstrap";
+
 import FormLogin from "../components/FormLogin";
+import NavbarAuth from "../components/Navbar/Navbar";
 
 
 const Login = ()=> {
     return( 
-        <div>
-        <Navbar></Navbar>
+        <>
+       
         <FormLogin></FormLogin>
-        </div>
+        </>
+        
     )
 }
 

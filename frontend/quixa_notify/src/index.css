@@ -1,4 +1,28 @@
 
+body{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  
+}
+
+a{
+  color: #fafafa;
+  text-decoration: none;
+}
+
+.activi {
+  font-weight: bold;
+}
+
+ul{
+  list-style: none;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
