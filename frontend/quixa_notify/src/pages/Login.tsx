@@ -1,9 +1,13 @@
+import { Navbar } from "react-bootstrap";
 import FormLogin from "../components/FormLogin";
 
 
 const Login = ()=> {
     return( 
-         <FormLogin></FormLogin>
+        <div>
+        <Navbar></Navbar>
+        <FormLogin></FormLogin>
+        </div>
     )
 }
 

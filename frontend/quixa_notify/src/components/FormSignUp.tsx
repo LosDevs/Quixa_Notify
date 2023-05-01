@@ -1,5 +1,12 @@
-import { useState } from "react"
+
 import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import {api} from "../services/api";
+
+
+
+
+
 
 /* eslint-disable prettier/prettier */
 const FormSignUp = ()=> {
@@ -10,8 +17,19 @@ const FormSignUp = ()=> {
 
     const handleSubmit =  (event: { preventDefault: () => void })=> {
         event.preventDefault()
-        console.log(event)
-        console.log(name, email, password)
+        
+        useEffect(() => {
+           api
+             .post("/user",{
+                   name: name,
+                   password: password,
+                   email: email 
+        })
+       
+             .catch((err) => {
+               console.error("ops! ocorreu um erro" + err);
+             });
+         }, []);
     }
 
 
