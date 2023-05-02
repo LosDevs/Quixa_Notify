@@ -13,6 +13,28 @@ const markerIcon = new L.Icon ({
 
 const Map = ()=> {
     const location = useGeoLocation()
+    const location2 = {
+        loaded: true,
+        cordinates: {
+            lat: "-4.97913",
+            lng: "-39.0188",
+        }
+    }
+    const location3 = {
+        loaded: true,
+        cordinates: {
+            lat: "-4.97813",
+            lng: "-39.0288",
+        }
+    }
+    const location4 = {
+        loaded: true,
+        cordinates: {
+            lat: "-4.96513",
+            lng: "-39.0388",
+        }
+    }
+    
     return(
         <MapContainer center={[-4.97813, -39.0188]} zoom={13} scrollWheelZoom={false}>
             <TileLayer
@@ -22,11 +44,29 @@ const Map = ()=> {
             {location.loaded && !location.error && (
                 <Marker draggable={true} position={[location.cordinates.lat, location.cordinates.lng,]} icon={markerIcon}>
                     <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
+                    Reclamação 1 <br />
                         {location.cordinates.lat}, {location.cordinates.lng}
                     </Popup>
                 </Marker>
             )}
+            <Marker draggable={true} position={[location2.cordinates.lat, location2.cordinates.lng,]} icon={markerIcon}>
+                    <Popup>
+                       Reclamação 2 <br />
+                        {location2.cordinates.lat}, {location2.cordinates.lng}
+                    </Popup>
+            </Marker>
+            <Marker draggable={true} position={[location3.cordinates.lat, location3.cordinates.lng,]} icon={markerIcon}>
+                    <Popup>
+                        Reclamação 3 <br />
+                        {location3.cordinates.lat}, {location3.cordinates.lng}
+                    </Popup>
+            </Marker>
+            <Marker draggable={true} position={[location4.cordinates.lat, location4.cordinates.lng,]} icon={markerIcon}>
+                    <Popup>
+                        Reclamação 4 <br />
+                        {location4.cordinates.lat}, {location4.cordinates.lng}
+                    </Popup>
+            </Marker>
         
         </MapContainer>
         

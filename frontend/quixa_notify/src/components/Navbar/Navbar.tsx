@@ -11,9 +11,9 @@ function NavbarAuth() {
       <Link to="/">QuixaNotify</Link>
       <ul id='nav-links'>
         <li>
-          <NavLink to="/">
+          {/* <NavLink to="/">
             <BsHouseDoorFill/>
-          </NavLink>
+          </NavLink> */}
         </li>
         <li><NavLink to="/login">
           Login
