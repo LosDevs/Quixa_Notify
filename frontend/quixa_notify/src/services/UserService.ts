@@ -1,6 +1,12 @@
 import { api } from "./api";
 
-export const create = async ({name,password,email})=> {
+interface props {
+    name: string;
+    password: string;
+    email: string;
+}
+
+export const create = async ({name,password,email}: props)=> {
     try {
         api.post('/user', {
             name: name,
@@ -16,8 +22,4 @@ export const create = async ({name,password,email})=> {
     } catch (error) {
        console.log(error) 
     }
-}
-
-export const UserService = {
-    create
 }
