@@ -6,7 +6,7 @@ import { GetEnderecoDto } from './dto/get-endereco-dto';
 export class ProblemaService {
     constructor(private prisma: PrismaService) { }
 
-    async postProblema(problema, idUsuario) {
+    async postProblema(problema, idUsuario, file) {
         try {
             const {
                 titulo,
@@ -15,7 +15,7 @@ export class ProblemaService {
                 endereco,
                 tipo_problema,
                 nivel_gravidade,
-                votacao,
+                votacao
             } = problema
             await this.prisma.problema.create({
                 data: {
@@ -26,6 +26,7 @@ export class ProblemaService {
                     tipo_problema : String(tipo_problema),
                     nivel_gravidade : Number(nivel_gravidade),
                     votacao : Number(votacao),
+                    imagem : String(file.filename),
                     usuario:{
                         connect :  {id : Number(idUsuario)}
                     } ,

@@ -20,16 +20,12 @@ export class ProblemaDto {
     @IsNotEmpty({message : "O tipo de problema não deve ser vazio."})
     @Length(3,30)
     tipo_problema: String;
-
-    @IsInt()
-    @Min(0)
-    @Max(10)
+    @IsNotEmpty()
     nivel_gravidade: number;
-
-    @IsInt()
-    @Min(0)
-    @Max(1)
+    @IsNotEmpty()
     votacao: number;
+
+    imagem: String;
 
 
 }

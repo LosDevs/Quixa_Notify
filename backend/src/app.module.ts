@@ -6,10 +6,16 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AppService } from './app.service';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { MulterModule } from '@nestjs/platform-express';
 
 
 @Module({
-  imports: [ProblemaModule, UserModule, AuthModule],
+  imports: [
+    ProblemaModule, 
+    UserModule, 
+    AuthModule,
+    MulterModule.register({ dest: './files' }),
+  ],
   controllers: [],
   providers: [
     AppService,
