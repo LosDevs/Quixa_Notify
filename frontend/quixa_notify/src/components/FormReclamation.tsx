@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Map from "./Map/Map";
+import { ICoordinates } from "../types/ICoordinates";
+import { IProblema } from "../types/IProblema";
+import { create } from "../services/ReclamationService";
 
-const FormRaclamation = () => {
-  const [formulario, setFormulario] = useState({
+interface FormRaclamationProps {
+  location: ICoordinates 
+}
+
+const FormRaclamation = ({location}: FormRaclamationProps) => {
+  const [formulario, setFormulario] = useState<IProblema>({
     titulo: "",
     longitude: "",
     latitude: "",
@@ -10,28 +17,56 @@ const FormRaclamation = () => {
     tipo_problema: "",
     nivel_gravidade: 0,
     votacao: 0,
-    image: "",
+    image: [],
+    imagePreview: null,
   });
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [image, setImage] = useState('')
+
+  useEffect(() => {
+    setFormulario({
+      ...formulario,
+      longitude: location.lng,
+      latitude: location.lat,
+    })
+  }, [location]);
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
-    setFormulario((prevState) => ({
-      ...prevState,
-      [name]:
-        name === "nivel_gravidade" || name === "votacao"
-          ? Number(value)
-          : value,
-    }));
+    if (name === "image") {
+      setFormulario((prevState) => ({
+        ...prevState,
+        [name]: event.target.files[0],
+      }));
+    } else {
+      setFormulario((prevState) => ({
+        ...prevState,
+        [name]:
+          name === "nivel_gravidade" || name === "votacao"
+            ? Number(value)
+            : value,
+      }));
+    }
   };
+
+  const handleImageChange = (event: any) => {
+    setImage(event.target.files[0])
+  };  
+  
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-
-    console.log(formulario);
+    const formData = new FormData()
+    formData.append('imagem', image)
+    formData.append('titulo', formulario.titulo)
+    formData.append('longitude', formulario.longitude)
+    formData.append('latitude', formulario.latitude)
+    formData.append('endereco', formulario.endereco)
+    formData.append('tipo_problema', formulario.tipo_problema)
+    formData.append('nivel_gravidade', formulario.nivel_gravidade.toString())
+    formData.append('votacao', formulario.votacao.toString())
+    console.log(formData)
+    create(formData)
   };
-
-  console.log(selectedLocation);
 
   return (
     <>
@@ -62,6 +97,34 @@ const FormRaclamation = () => {
             value={formulario.endereco}
             onChange={handleChange}
             placeholder="Endereço"
+          />
+        </div>
+        <div className="form-group my-3">
+          <label htmlFor="inputLatitude" className="form-label">
+            Latitude
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="inputLatitude"
+            name="inputLatitude"
+            disabled
+            value={formulario.latitude}
+            placeholder="Latitude"
+          />
+        </div>
+        <div className="form-group my-3">
+          <label htmlFor="inputLongitude" className="form-label">
+          Longitude
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="inputLongitude"
+            name="inputLongitude"
+            value={formulario.longitude}
+            disabled
+            placeholder="Longitude"
           />
         </div>
         <div className="form-group my-3">
@@ -111,12 +174,11 @@ const FormRaclamation = () => {
             Imagem
           </label>
           <input
-            type="text"
+            type="file"
             className="form-control"
             id="inputImage"
             name="image"
-            value={formulario.image}
-            onChange={handleChange}
+            onChange={handleImageChange}
             placeholder="Imagem"
           />
         </div>

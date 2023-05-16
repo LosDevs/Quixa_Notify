@@ -33,6 +33,7 @@ export const login = async ({ password, email }: LoginProps) => {
       password: password,
       email: email
     });
+    console.log(response)
     const token = response.data.access_token;
     setAuthToken(token)
     return response.data;

@@ -11,6 +11,7 @@ import "leaflet/dist/leaflet.css";
 import "./Map.css";
 import useGeoLocation from "./useGeoLocation";
 import { useState } from "react";
+import { ICoordinates } from "../../types/ICoordinates";
 
 const markerIcon = new L.Icon({
   iconUrl: "../../../node_modules/bootstrap-icons/icons/geo-alt-fill.svg",
@@ -18,7 +19,11 @@ const markerIcon = new L.Icon({
   iconSize: [35, 45],
 });
 
-const Map = () => {
+interface MapProps {
+  locationClick: React.Dispatch<React.SetStateAction<ICoordinates>>
+}
+
+const Map = ({locationClick} : MapProps) => {
   const [selectedLocation, setSelectedLocation] = useState({
     lat: 0,
     lng: 0,
@@ -50,7 +55,6 @@ const Map = () => {
   const handleMapClick = (event: any) => {
     const { lat, lng } = event.latlng;
     setSelectedLocation({ lat, lng });
-    console.log(lat, lng);
   };
 
   const MapClickHandler = () => {
@@ -58,6 +62,9 @@ const Map = () => {
       click: (event) => {
         const { lat, lng } = event.latlng;
         setSelectedLocation({ lat, lng });
+        const latitude = lat.toString();
+        const longitude = lng.toString();
+        locationClick({lat: latitude, lng: longitude})
       },
     });
     return null;

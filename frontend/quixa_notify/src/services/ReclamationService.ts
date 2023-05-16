@@ -10,18 +10,10 @@ interface props {
     votacao: number;
     image: string;
 }
-export const create = async ({ titulo, longitude, latitude, endereco, tipo_problema, nivel_gavidade, votacao, image }: props) => {
+export const create = async (form: any) => {
+    const token = api.defaults.headers.common['Authorization' ];
     try {
-        api.post('/problemas', {
-            titulo: titulo,
-            longitude: longitude,
-            latitude: latitude,
-            endereco: endereco,
-            tipo_problema: tipo_problema,
-            nivel_gavidade: nivel_gavidade,
-            votacao: votacao,
-            image: image,
-        })
+        api.post('/problemas', {headers: {'Authorization': `Bearer ${token}`}} ,form)
             .then(function (response) {
                 console.log(response);
             })
