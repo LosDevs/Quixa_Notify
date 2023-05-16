@@ -6,6 +6,7 @@ export interface IProblema {
     tipo_problema: string;
     nivel_gravidade: number;
     votacao: number;
+    descricao : string;
     image: Object;
     imagePreview: null;
 }

@@ -17,6 +17,7 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
     tipo_problema: "",
     nivel_gravidade: 0,
     votacao: 0,
+    descricao : "",
     image: [],
     imagePreview: null,
   });
@@ -62,6 +63,7 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
     formData.append('latitude', formulario.latitude)
     formData.append('endereco', formulario.endereco)
     formData.append('tipo_problema', formulario.tipo_problema)
+    formData.append('descricao', formulario.descricao)
     formData.append('nivel_gravidade', formulario.nivel_gravidade.toString())
     formData.append('votacao', formulario.votacao.toString())
     console.log(formData)
@@ -97,6 +99,20 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
             value={formulario.endereco}
             onChange={handleChange}
             placeholder="Endereço"
+          />
+        </div>
+        <div className="form-group my-3">
+          <label htmlFor="inputDescricao" className="form-label">
+            Descriçao
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            id="inputDescricao"
+            name="descricao"
+            value={formulario.descricao}
+            onChange={handleChange}
+            placeholder="descricao"
           />
         </div>
         <div className="form-group my-3">

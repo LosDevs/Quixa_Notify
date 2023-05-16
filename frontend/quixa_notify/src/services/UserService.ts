@@ -29,14 +29,15 @@ interface LoginProps {
 }
 export const login = async ({ password, email }: LoginProps) => {
   try {
-    const response = await api.post('/login', {
+    await api.post('/login', {
       password: password,
       email: email
-    });
-    console.log(response)
-    const token = response.data.access_token;
-    setAuthToken(token)
-    return response.data;
+    }).then((response) => {
+      const token  =  response.data.access_token;
+      localStorage.setItem("token", token);
+      console.log(token)
+      setAuthToken(token);
+    })
   } catch (error) {
     console.error(error);
     throw error

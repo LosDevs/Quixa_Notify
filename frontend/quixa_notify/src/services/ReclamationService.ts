@@ -12,8 +12,10 @@ interface props {
 }
 export const create = async (form: any) => {
     const token = api.defaults.headers.common['Authorization' ];
+    console.log(token)
+    console.log()
     try {
-        api.post('/problemas', {headers: {'Authorization': `Bearer ${token}`}} ,form)
+        api.post('/problemas',form, {headers: {'Authorization': `Bearer ${token}`}})
             .then(function (response) {
                 console.log(response);
             })
