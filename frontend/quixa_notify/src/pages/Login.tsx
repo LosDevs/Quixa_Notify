@@ -5,10 +5,7 @@ import NavbarAuth from "../components/Navbar/Navbar";
 
 const Login = ()=> {
     return( 
-        <>
-            <FormLogin></FormLogin>
-        </>
-        
+      <FormLogin></FormLogin>
     )
 }
 

@@ -19,11 +19,12 @@ const FormLogin = ()=> {
 
 
     return  (
-        <div className="row d-felx align-items-center justify-content-envily m-5 p-5">
-            <div className="col d-flex align-items-center justify-content-center">
+        <div className="row d-flex h-100 w-100 justify-content-around">
+            <div className="col d-flex align-items-center ">
                 <img src="logo1.png" alt="" width={500}/>
             </div>
-            <form className="col d-flex flex-column " onSubmit={handleSubmit}>
+            <div className="col d-flex align-items-center" style={{backgroundColor: "lightblue"}}>
+            <form className="col d-flex flex-column " id="formulario" onSubmit={handleSubmit}>
                 <h2 className="mb-4">Login</h2>
                 <div className="mb-3 from-group">
                     <label htmlFor="exampleFormControlInput1" className="form-label">Email  </label>
@@ -50,6 +51,7 @@ const FormLogin = ()=> {
                     <button type="submit" className="btn btn-primary mb-3">Login</button>
                 </div>
             </form>
+            </div>
         </div>
     )
 }
