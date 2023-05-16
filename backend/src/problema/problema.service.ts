@@ -29,6 +29,7 @@ export class ProblemaService {
                     votacao : Number(votacao),
                     descricao : String(descricao),
                     imagem : String(file.filename),
+
                     usuario:{
                         connect :  {id : Number(idUsuario)}
                     } ,
