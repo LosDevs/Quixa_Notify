@@ -1,7 +1,12 @@
+import { ICoordinates } from '../types/ICoordinates'
 import FormRaclamation from './FormReclamation'
 import Map from './Map/Map'
 
-const ReclamationOffcanvas = ()=> {
+interface ReclamationOffCanvasProps {
+    location: ICoordinates 
+}
+
+const ReclamationOffcanvas = ({location}: ReclamationOffCanvasProps)=> {
     return (
         <div className='m-3'>  
             <button className="btn btn-primary m-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasList" aria-controls="offcanvasList">Listar</button>
@@ -59,7 +64,7 @@ const ReclamationOffcanvas = ()=> {
                     <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body">
-                    <FormRaclamation></FormRaclamation>
+                    <FormRaclamation location={location}></FormRaclamation>
                 </div>
             </div>
         </div>
