@@ -9,14 +9,4 @@ const Login = () => {
   );
 };
 
-<<<<<<< HEAD
-const Login = ()=> {
-    return( 
-      <FormLogin></FormLogin>
-    )
-}
-
 export default Login;
-=======
-export default Login;
->>>>>>> future/conexao-api
