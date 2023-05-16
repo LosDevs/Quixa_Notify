@@ -22,7 +22,6 @@ import { extname } from 'path';
 export class ProblemaController {
   constructor(private readonly problemaService: ProblemaService) {}
 
-  @IsPublic()
   @Post()
   @UseInterceptors(
     FileInterceptor('imagem', {
@@ -42,7 +41,6 @@ export class ProblemaController {
     @CurrentUser() user: User,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    console.log('file', file);
     return this.problemaService.postProblema(data, user.id, file);
   }
 

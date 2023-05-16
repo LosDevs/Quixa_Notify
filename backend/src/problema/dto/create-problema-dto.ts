@@ -25,5 +25,8 @@ export class ProblemaDto {
   @IsNotEmpty()
   votacao: number;
 
+  @IsNotEmpty({message : "a descrição não pode ser vazio"})
+  descricao : String
+
   imagem: string;
 }
