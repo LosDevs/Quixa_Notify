@@ -20,12 +20,8 @@ import { extname } from 'path';
 
 @Controller('problemas')
 export class ProblemaController {
-<<<<<<< HEAD
-  constructor(private readonly problemaService : ProblemaService) {}
-=======
   constructor(private readonly problemaService: ProblemaService) {}
 
->>>>>>> future/conexao-api
   @Post()
   @UseInterceptors(
     FileInterceptor('imagem', {
