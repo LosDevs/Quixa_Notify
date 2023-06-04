@@ -95,6 +95,7 @@ const Map = ({locationClick} : MapProps) => {
             {location.cordinates.lat}, {location.cordinates.lng}
           </Popup>
         </Marker>
+        
       )}
       <MapClickHandler />
     </MapContainer>

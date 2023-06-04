@@ -8,6 +8,7 @@ interface props {
     tipo_problema: string;
     nivel_gavidade: number;
     votacao: number;
+    descricao : string;
     image: string;
 }
 export const create = async (form: any) => {
@@ -25,4 +26,16 @@ export const create = async (form: any) => {
     } catch (error) {
         console.log(error)
     }
+}
+
+export const get = async () => {
+    try {
+    const data = await api.get('http://localhost:3000/problemas')
+    .then(data =>  {
+            return data.data
+        })
+    return data
+}catch(error){
+    console.log(error)
+}
 }
