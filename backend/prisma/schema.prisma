@@ -11,27 +11,40 @@ datasource db {
 }
 
 model Usuario {
-  id Int @id @default(autoincrement())
-  email    String @unique
+  id       Int        @id @default(autoincrement())
+  email    String     @unique
   password String
-  name String
+  name     String
   problema Problema[]
+
   @@map("usuario")
 }
 
 model Problema {
-  id               Int                @id @default(autoincrement())
-  titulo           String
-  longitude        String
-  latitude         String
-  endereco         String
-  tipo_problema    String
-  nivel_gravidade  Int
-  votacao          Int
-  descricao        String
-  imagem           String
-  created_at       DateTime           @default(now())
-  usuario   Usuario? @relation(fields: [usuarioId], references: [id])
-  usuarioId Int?
+  id              Int          @id @default(autoincrement())
+  titulo          String
+  longitude       String
+  latitude        String
+  endereco        String
+  tipo_problema   String
+  nivel_gravidade Int
+  votacao         Int
+  descricao       String
+  imagem          String
+  created_at      DateTime     @default(now())
+  usuario         Usuario?     @relation(fields: [usuarioId], references: [id])
+  usuarioId       Int?
+  Comentario      Comentario[]
+
   @@map("problema")
+}
+
+model Comentario {
+  id         Int       @id @default(autoincrement())
+  problema   Problema? @relation(fields: [problemaId], references: [id])
+  problemaId Int?
+  idusuario Int
+  nome String
+  comentario String
+  @@map("comentario")
 }

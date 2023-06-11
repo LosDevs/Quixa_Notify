@@ -72,7 +72,20 @@ export class ProblemaController {
   @IsPublic()
   @Get('/problema/:id')
   async getProblema(@Param('id') id){
-    console.log(id)
     return  await this.problemaService.getProblema(id);
+  }
+
+  @IsPublic()
+  @Get('/comentario/:id')
+  async getProblemaComentario(@Param('id') id){
+    return  await this.problemaService.getProblemaComentario(id);
+  }
+
+  @Post('/comentario')
+  async posComentario(
+    @Body() comentario: any,
+    @CurrentUser() user: User,
+  ) {
+    return this.problemaService.postComentario(comentario, user);
   }
 }
