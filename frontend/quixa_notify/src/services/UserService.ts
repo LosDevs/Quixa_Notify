@@ -1,3 +1,4 @@
+import axios from "axios";
 import { api } from "./api";
 //*Signup
 interface props {
@@ -43,6 +44,25 @@ export const login = async ({ password, email }: LoginProps) => {
     throw error
   }
 };
+
+
+interface votar {
+  id: number;
+  votacao: string;
+}
+export const votar = async ({id, votacao} : votar) => {
+  try {
+    await api.put('http://localhost:3000/problemas/voto', {
+      id: id,
+      votacao: votacao
+    }).then((response) => {
+      console.log(response)
+    })
+  } catch (error) {
+    console.error(error);
+    throw error
+  }
+}
 
 
 

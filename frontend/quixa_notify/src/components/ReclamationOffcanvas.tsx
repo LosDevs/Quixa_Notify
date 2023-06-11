@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { ICoordinates } from '../types/ICoordinates'
 import FormRaclamation from './FormReclamation'
 import Map from './Map/Map'
+import { votar } from "../services/UserService";
+import { api } from "../services/api";
 
 interface ReclamationOffCanvasProps {
     location: ICoordinates 
@@ -22,6 +24,7 @@ const ReclamationOffcanvas = ({location}: ReclamationOffCanvasProps)=> {
         votacao: number;
         imagem: string;
     }
+
     const [rep , setRep] = useState<props[]>([]);
     
     async function buttonListar(event : any) {
@@ -35,6 +38,17 @@ const ReclamationOffcanvas = ({location}: ReclamationOffCanvasProps)=> {
         }
     }
 
+    async function vota(voto:any) {
+        try {
+            await votar(voto)
+            fetch('http://localhost:3000/problemas')
+            .then(res => res.json())
+            .then(data => setRep(data))
+        } catch (error) {
+            
+        }
+    }   
+
 
     return (
         <div className='m-3'>  
@@ -46,22 +60,18 @@ const ReclamationOffcanvas = ({location}: ReclamationOffCanvasProps)=> {
                     <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body">
-                <ul>{rep.map<any>((rep) => {
-                {console.log(rep)}
-                    return <li key={rep.id}>
-                        <div className={rep.titulo}>
-                        <img src={'http://localhost:3000/problemas/'+rep.imagem} alt="" />
-                        <div className='card-header'>
-                            <p>{rep.titulo}</p>
+                {rep.map<any>((rep) => {
+                    return <div key={rep.id}>
+                        <div className="card">
+                        <img width={400} height={300} src={'http://localhost:3000/problemas/'+rep.imagem} alt=" " className="card-img-top"></img>
+                        <div className="card-body">
+                            <h5 className="card-title">{rep.titulo}</h5>
+                            <p className="card-text">{rep.descricao}.</p>
+                            <a onClick={() => vota(rep)}className="btn btn-primary">Votação {rep.votacao}</a>
                         </div>
-                        <div className='card-body'>
-                            <p>{rep.nivel_gavidade}</p>
-                            <p>{rep.votacao}</p>
-                            <p>{rep.descricao}</p>
-                        </div>    
+                        </div>
                     </div>
-                    </li>
-                })}</ul>
+                })}
                     
                 </div>
             </div>

@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Res,
   UploadedFile,
   UseInterceptors,
@@ -53,12 +54,25 @@ export class ProblemaController {
   @IsPublic()
   @Get()
   async getProblemas() {
-    return this.problemaService.getProblemas();
+    return this.problemaService.getProblemas()
   }
 
   @IsPublic()
   @Get('cordenadas')
   async getProblemaCordenada(@Body() getEnderecoDto: GetEnderecoDto) {
     return this.problemaService.getEnderecoCordenada(getEnderecoDto);
+  }
+
+  @IsPublic()
+  @Put('voto')
+  async votar(@Body() voto){
+    return this.problemaService.votar(voto)
+  }
+
+  @IsPublic()
+  @Get('/problema/:id')
+  async getProblema(@Param('id') id){
+    console.log(id)
+    return  await this.problemaService.getProblema(id);
   }
 }

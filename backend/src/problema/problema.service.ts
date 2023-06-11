@@ -66,4 +66,35 @@ export class ProblemaService {
             return { message: 'aconteceu algum problema', error }
         }
     }
+
+    async votar(voto){
+        try {
+            const Problema = await this.prisma.problema.update({
+                where : {
+                    id : voto.id
+                },
+                data: {
+                    votacao: Number(`${voto.votacao+ 1}`),
+                },
+                
+            })
+            return "sucesso"
+        }catch(error){
+            return { message: 'aconteceu algum problema', error }
+        }
+    }
+
+    async getProblema(id){
+        try {
+            const problema = await this.prisma.problema.findFirst({
+                where :  {
+                    id : Number(`${id}`)
+                }
+            })
+            console.log(problema)
+            return problema
+        } catch (error) {
+            return { message: 'aconteceu algum problema', error }
+        }
+    }
 }
