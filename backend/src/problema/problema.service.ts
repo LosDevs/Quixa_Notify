@@ -97,4 +97,43 @@ export class ProblemaService {
             return { message: 'aconteceu algum problema', error }
         }
     }
+
+    async getProblemaComentario(id){
+        try {
+            const problema = await this.prisma.problema.findFirst({
+                where :  {
+                    id : Number(`${id}`)
+                },
+                include : {
+                    Comentario : true
+                }
+            })
+            console.log(problema)
+            return problema
+        } catch (error) {
+            return { message: 'aconteceu algum problema', error }
+        }
+    }
+
+
+    async postComentario(comentario, usuario) {
+        try {
+            const {
+                id,
+                name,
+            } = usuario
+            const comentarios = await this.prisma.comentario.create({
+                data : {
+                    problemaId : comentario.idproblema,
+                    nome : name,
+                    idusuario : id,
+                    comentario : String(comentario.comentario)
+                }
+            })
+            console.log(comentarios)
+            return { message: 'Problema criado com sucesso' }
+        } catch (error) {
+            return { message: 'aconteceu algum problema' + error }
+        }
+    }
 }
