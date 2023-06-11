@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { FaThumbsUp } from 'react-icons/fa';
 import '../stylesCss/ReclamationDetails.css'
 import { votar } from '../services/UserService';
+import { addCommentInReclamation } from '../services/ReclamationService';
 
 type props =  {
     id : string;
@@ -17,10 +18,20 @@ type props =  {
     imagem: string;
 }
 
+type propsComement = {
+    id: number;
+    idusuario: number;
+    problemaId: number
+    nome: string;
+    comentario: string;
+}
+
 const ReclamationDetails = () => {
     const { id } = useParams();
 
     const [problema, setProblema] = useState<props>();
+    const [commentsArray, setCommentsArray] = useState<propsComement[] | []>([]);
+    const [comment, setComment] = useState('');
 
     useEffect(() => {
         const fetchProblema = async () => {
@@ -28,6 +39,12 @@ const ReclamationDetails = () => {
             const response = await fetch(`http://localhost:3000/problemas/problema/${id}`);
             const data = await response.json();
             setProblema(data);
+
+            const comments = await fetch(`http://localhost:3000/problemas/comentario/${id}`)
+            const data2 = await comments.json();
+            setCommentsArray(data2.Comentario)
+
+
           } catch (error) {
             console.error(error);
           }
@@ -35,6 +52,10 @@ const ReclamationDetails = () => {
     
         fetchProblema();
     }, [id]);
+
+    const handleInputChange = (event: any) => {
+        setComment(event.target.value);
+    };
 
     async function vota() {
         try {
@@ -51,6 +72,19 @@ const ReclamationDetails = () => {
             
         }
     } 
+
+    function addComment () {
+        if(comment !== '') {
+            const id = problema?.id ? problema?.id : null
+            const postComment = addCommentInReclamation(comment, id).then(
+                (res) => {
+                    if(res?.success) {
+                        setComment('');
+                    }
+                }
+            );
+        }
+    }
 
     return (
         <div>
@@ -76,49 +110,32 @@ const ReclamationDetails = () => {
                             <p>{problema.votacao} <button onClick={() => vota()}><FaThumbsUp/></button></p>
 
                             <h4>Coméntários:</h4>
-                            <input type="text" placeholder='Adicione um comentário' />
+                            <input 
+                                type="text" 
+                                placeholder='Adicione um comentário' 
+                                value={comment}
+                                onChange={handleInputChange}
+                            />
+                            <button onClick={addComment}>Enviar</button>
 
                             <div className='container-comentarios'>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, totam. Est quae dolore dolor alias sapiente laborum a. Dolor, impedit?</p>
+                            
+                                {commentsArray.map((comment, index) => (
+                                    <div className="card" key={index}>
+                                        <div className="card-header">
+                                        Comentário
+                                        </div>
+                                        <div className="card-body">
+                                        <blockquote className="blockquote mb-0">
+                                            <p>{comment.comentario}</p>
+                                            <footer className="blockquote-footer">{comment.nome}</footer>
+                                        </blockquote>
+                                        </div>
+                                    </div>
+                                ))}
+
+                                
+
                             </div>
                         </div>
                         ) : (
