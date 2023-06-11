@@ -36,12 +36,13 @@ export const login = async ({ password, email }: LoginProps) => {
     }).then((response) => {
       const token  =  response.data.access_token;
       localStorage.setItem("token", token);
-      console.log(token)
       setAuthToken(token);
     })
+
+    return true;
   } catch (error) {
-    console.error(error);
-    throw error
+    // console.error(error);
+    return false;
   }
 };
 

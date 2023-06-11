@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/UserService";
+import { AuthContext } from "../context/AuthContext";
 import { api } from "../services/api";
 
 /* eslint-disable prettier/prettier */
 const FormLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { loginAC, isAuthenticated } = useContext(AuthContext);
   useEffect(() => {});
   const navigate = useNavigate();
 
@@ -14,7 +16,14 @@ const FormLogin = () => {
     event.preventDefault();
 
     try {
-      await login({ email: email, password: password });
+      const data = await login({ email: email, password: password }).then(
+        (res) => {
+          if(res) {
+            loginAC()
+          }
+          
+        }
+      );
       navigate("/");
     } catch (error) {
       console.error(error);

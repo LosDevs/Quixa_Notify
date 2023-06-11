@@ -121,7 +121,7 @@ const ReclamationDetails = () => {
                             <div className='container-comentarios'>
                             
                                 {commentsArray.map((comment, index) => (
-                                    <div className="card" key={index}>
+                                    <div className="card mb-3" key={index}>
                                         <div className="card-header">
                                         Comentário
                                         </div>
