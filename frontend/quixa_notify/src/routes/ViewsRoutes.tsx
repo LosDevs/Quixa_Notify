@@ -7,6 +7,7 @@ import SingUp from "../pages/SingUp";
 import Reclamation from "../pages/Reclamation";
 import Footer from "../components/Footer/Footer";
 import NavbarAuth from "../components/Navbar/Navbar";
+import ReclamationDetails from "../pages/ReclamationDetails";
 
 const ViewsRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const ViewsRoutes = () => {
         <Routes>
           <Route path="/" element={<Home></Home>} />
           <Route path="/reclamation" element={<Reclamation></Reclamation>} />
+          <Route path="/reclamation/:id" element={<ReclamationDetails />} /> 
           <Route path="/login" element={<Login></Login>} />
           <Route path="/signup" element={<SingUp></SingUp>}></Route>
         </Routes>

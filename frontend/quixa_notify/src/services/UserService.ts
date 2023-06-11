@@ -48,7 +48,7 @@ export const login = async ({ password, email }: LoginProps) => {
 
 interface votar {
   id: number;
-  votacao: string;
+  votacao: number;
 }
 export const votar = async ({id, votacao} : votar) => {
   try {

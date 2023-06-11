@@ -4,6 +4,8 @@ import FormRaclamation from './FormReclamation'
 import Map from './Map/Map'
 import { votar } from "../services/UserService";
 import { api } from "../services/api";
+import { useNavigate } from "react-router-dom";
+
 
 interface ReclamationOffCanvasProps {
     location: ICoordinates 
@@ -26,6 +28,8 @@ const ReclamationOffcanvas = ({location}: ReclamationOffCanvasProps)=> {
     }
 
     const [rep , setRep] = useState<props[]>([]);
+
+    const navigate = useNavigate();
     
     async function buttonListar(event : any) {
         event.preventDefault();
@@ -49,6 +53,10 @@ const ReclamationOffcanvas = ({location}: ReclamationOffCanvasProps)=> {
         }
     }   
 
+    function navigateForDetailsReclamation(id: any) {
+        navigate(`/reclamation/${id}`)
+    }
+
 
     return (
         <div className='m-3'>  
@@ -67,7 +75,7 @@ const ReclamationOffcanvas = ({location}: ReclamationOffCanvasProps)=> {
                         <div className="card-body">
                             <h5 className="card-title">{rep.titulo}</h5>
                             <p className="card-text">{rep.descricao}.</p>
-                            <a onClick={() => vota(rep)}className="btn btn-primary">Votação {rep.votacao}</a>
+                            <a onClick={() => navigateForDetailsReclamation(rep.id)}className="btn btn-primary">Ver mais</a>
                         </div>
                         </div>
                     </div>
