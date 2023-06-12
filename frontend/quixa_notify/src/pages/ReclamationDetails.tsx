@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaThumbsUp } from 'react-icons/fa';
 import '../stylesCss/ReclamationDetails.css'
 import { votar } from '../services/UserService';
+import { AuthContext } from '../context/AuthContext'; 
 import { addCommentInReclamation } from '../services/ReclamationService';
 
 type props =  {
@@ -33,6 +34,7 @@ const ReclamationDetails = () => {
     const [commentsArray, setCommentsArray] = useState<propsComement[] | []>([]);
     const [comment, setComment] = useState('');
     const [refresh, setRefresh] = useState(false);
+    const { isAuthenticated } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchProblema = async () => {
@@ -76,15 +78,21 @@ const ReclamationDetails = () => {
 
     function addComment () {
         if(comment !== '') {
-            const id = problema?.id ? problema?.id : null
-            const postComment = addCommentInReclamation(comment, id).then(
-                (res) => {
-                    if(res?.success) {
-                        setComment('');
-                        setRefresh(!refresh);
+            if(isAuthenticated) {
+                const id = problema?.id ? problema?.id : null
+                const postComment = addCommentInReclamation(comment, id).then(
+                    (res) => {
+                        if(res?.success) {
+                            setComment('');
+                            setRefresh(!refresh);
+                        }
                     }
-                }
-            );
+                );
+            }else {
+                alert('É preciso estar logado para comentar')
+            }
+        }else {
+            alert('É preciso adicionar um texto para comentar')
         }
     }
 
