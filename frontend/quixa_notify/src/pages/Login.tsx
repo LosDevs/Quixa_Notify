@@ -1,10 +1,12 @@
-import FormLogin from "../components/FormLogin";
+import FormLogin from "../components/FormLogin/FormLogin";
 import NavbarAuth from "../components/Navbar/Navbar";
 
 const Login = () => {
   return (
     <>
-      <FormLogin></FormLogin>
+      <div className="d-flex justify-content-center align-items-center vw-100">
+        <FormLogin></FormLogin>
+      </div>
     </>
   );
 };
