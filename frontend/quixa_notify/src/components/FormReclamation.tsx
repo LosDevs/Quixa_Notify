@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Map from "./Map/Map";
 import { ICoordinates } from "../types/ICoordinates";
 import { IProblema } from "../types/IProblema";
 import { create } from "../services/ReclamationService";
+import { AuthContext } from "../context/AuthContext";
 
 interface FormRaclamationProps {
   location: ICoordinates 
@@ -22,6 +23,7 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
     imagePreview: null,
   });
   const [image, setImage] = useState('')
+  const { isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
     setFormulario({
@@ -55,6 +57,9 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
   
 
   const handleSubmit = (event: any) => {
+    if(!isAuthenticated) {
+      alert("É preciso estar logado para comentar");
+    }
     event.preventDefault();
     const formData = new FormData()
     formData.append('imagem', image)
