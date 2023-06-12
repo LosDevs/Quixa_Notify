@@ -4,7 +4,7 @@ import NavbarAuth from "../components/Navbar/Navbar";
 const Login = () => {
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center vw-100">
+      <div>
         <FormLogin></FormLogin>
       </div>
     </>

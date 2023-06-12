@@ -21,19 +21,19 @@ const FormLogin = () => {
         (res) => {
           if(res) {
             loginAC()
+            navigate("/");
           }
           
         }
       );
-      navigate("/");
     } catch (error) {
       console.error(error);
     }
   }
 
   return (
-    <div className="container">
-      <div className="container-fluid d-flex align-items-center justify-content-center gradient-bg body">
+    <div className="">
+      <div className="container-fluid align-items-center justify-content-center p-0 m-0 w-100">
         <div className="row">
           <div className="col-md-4 d-flex flex-column align-items-center justify-content-center logo-container">
             <div>
@@ -59,6 +59,7 @@ const FormLogin = () => {
                   className="form-control form-control-sm rounded-pill"
                   id="exampleFormControlInput1"
                   placeholder="name@exemplo.com"
+                  required={true}
                   onChange={(event) => {
                     setEmail(event.target.value);
                   }}
@@ -76,6 +77,7 @@ const FormLogin = () => {
                   id="inputPassword5"
                   className="form-control form-control-sm rounded-pill"
                   aria-labelledby="passwordHelpBlock"
+                  required={true}
                   onChange={(event) => {
                     setPassword(event.target.value);
                   }}

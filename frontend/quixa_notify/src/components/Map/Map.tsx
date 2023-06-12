@@ -83,16 +83,16 @@ const Map = ({locationClick} : MapProps) => {
       {/* {location.loaded && !location.error && ( */}
       {location.loaded && (
         <Marker
-          draggable={true}
+          draggable={false}
           position={[
-            Number(location2.cordinates.lat),
-            Number(location2.cordinates.lng),
+            Number(-4.965793044750585),
+            Number(-39.02233242988587),
           ]}
           icon={markerIcon}
         >
           <Popup>
             Reclamação 1 <br />
-            {location.cordinates.lat}, {location.cordinates.lng}
+            {-4.969165278686209}, {-39.0273079276085}
           </Popup>
         </Marker>
         

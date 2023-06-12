@@ -13,7 +13,7 @@ const ViewsRoutes = () => {
   return (
     <>
       <NavbarAuth></NavbarAuth>
-      <div className="container">
+      <div className="">
         <Routes>
           <Route path="/" element={<Home></Home>} />
           <Route path="/reclamation" element={<Reclamation></Reclamation>} />
