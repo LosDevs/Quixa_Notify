@@ -32,6 +32,7 @@ const ReclamationDetails = () => {
     const [problema, setProblema] = useState<props>();
     const [commentsArray, setCommentsArray] = useState<propsComement[] | []>([]);
     const [comment, setComment] = useState('');
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         const fetchProblema = async () => {
@@ -51,7 +52,7 @@ const ReclamationDetails = () => {
         };
     
         fetchProblema();
-    }, [id]);
+    }, [id, refresh]);
 
     const handleInputChange = (event: any) => {
         setComment(event.target.value);
@@ -80,6 +81,7 @@ const ReclamationDetails = () => {
                 (res) => {
                     if(res?.success) {
                         setComment('');
+                        setRefresh(!refresh);
                     }
                 }
             );
