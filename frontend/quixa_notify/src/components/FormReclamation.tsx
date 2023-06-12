@@ -56,7 +56,7 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
   };  
   
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     if(!isAuthenticated) {
       alert("É preciso estar logado para comentar");
     }
@@ -72,7 +72,22 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
     formData.append('nivel_gravidade', formulario.nivel_gravidade.toString())
     formData.append('votacao', formulario.votacao.toString())
     console.log(formData)
-    create(formData)
+    await create(formData)
+
+    const newForm = {
+      titulo: "",
+      longitude: "",
+      latitude: "",
+      endereco: "",
+      tipo_problema: "",
+      nivel_gravidade: 0,
+      votacao: 0,
+      descricao : "",
+      image: [],
+      imagePreview: null,
+    }
+
+    setFormulario(newForm);
   };
 
   return (
