@@ -80,8 +80,8 @@ const DashboardCompany = () => {
 
                         <p>Status: {reclamation.finalized ? 'Fechado' : 'Em Aberto'}</p>
 
-                        {reclamation.finalized && 
-                          <button className="btn btn-primary" onClick={() => finalizarProblema}>
+                        {!reclamation.finalized && 
+                          <button className="btn btn-primary" onClick={() => finalizarProblema(reclamation.id)}>
                             FECHAR RECLAMAÇÃO
                           </button>
                         }
