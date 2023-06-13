@@ -17,7 +17,7 @@ const FormLogin = () => {
     event.preventDefault();
 
     try {
-      const data = await login({ email: email, password: password }).then(
+      await login({ email: email, password: password }).then(
         (res) => {
           if(res) {
             loginAC()
