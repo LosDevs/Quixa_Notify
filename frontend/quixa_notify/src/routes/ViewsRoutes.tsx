@@ -8,6 +8,7 @@ import Reclamation from "../pages/Reclamation";
 import Footer from "../components/Footer/Footer";
 import NavbarAuth from "../components/Navbar/Navbar";
 import ReclamationDetails from "../pages/ReclamationDetails";
+import MyReclamation from "../pages/MyReclamation/MyReclamation";
 
 const ViewsRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const ViewsRoutes = () => {
           <Route path="/" element={<Home></Home>} />
           <Route path="/reclamation" element={<Reclamation></Reclamation>} />
           <Route path="/reclamation/:id" element={<ReclamationDetails />} /> 
+          <Route path="/my-reclamation" element={<MyReclamation />} /> 
           <Route path="/login" element={<Login></Login>} />
           <Route path="/signup" element={<SingUp></SingUp>}></Route>
         </Routes>

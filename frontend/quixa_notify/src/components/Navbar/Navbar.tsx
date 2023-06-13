@@ -33,9 +33,14 @@ function NavbarAuth() {
           </>
         )}
         {isAuthenticated && (
-          <li>
-            <button onClick={handleLogout}>Sair</button>
-          </li>
+          <>
+            <li>
+              <NavLink to="/my-reclamation">Minhas Reclamações</NavLink>
+            </li>
+            <li>
+              <button onClick={handleLogout}>Sair</button>
+            </li>
+          </>
         )}
       </ul>
     </nav>

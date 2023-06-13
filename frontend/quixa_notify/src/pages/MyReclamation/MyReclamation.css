@@ -1,0 +1,26 @@
+h2 {
+    text-align: center;
+}
+
+.reclamation-container {
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reclamation-container .reclamation-item {
+    border: 1px solid #000;
+    width: 60%;
+    margin: 20px auto;
+}
+
+.reclamation-container .reclamation-item h3 {
+    text-align: center;
+}
+
+.reclamation-container .reclamation-item .descricao,
+.reclamation-container .reclamation-item .endereco {
+    margin: 1em 1em;
+    background-color: blue;
+}

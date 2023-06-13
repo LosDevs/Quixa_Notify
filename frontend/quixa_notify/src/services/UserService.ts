@@ -34,7 +34,10 @@ export const login = async ({ password, email }: LoginProps) => {
       password: password,
       email: email
     }).then((response) => {
+      const idUser = response.data.data.sub;
       const token  =  response.data.access_token;
+
+      localStorage.setItem("userId", idUser);
       localStorage.setItem("token", token);
       setAuthToken(token);
     })
