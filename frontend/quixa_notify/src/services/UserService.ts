@@ -1,80 +1,73 @@
-import axios from "axios";
 import { api } from "./api";
-//*Signup
+
+// Signup
 interface props {
   name: string;
   password: string;
   email: string;
 }
+
 export const create = async ({ name, password, email }: props) => {
   try {
-    api.post('/user', {
+    await api.post('/user', {
       name: name,
       password: password,
       email: email
-    })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
+    });
+
+    return true;
   } catch (error) {
-    console.log(error)
+    return false;
   }
 }
-//*Login
+
+// Login
 interface LoginProps {
   password: string;
   email: string;
 }
+
 export const login = async ({ password, email }: LoginProps) => {
   try {
-    await api.post('/login', {
+    const response = await api.post('/login', {
       password: password,
       email: email
-    }).then((response) => {
-      const token  =  response.data.access_token;
-      localStorage.setItem("token", token);
-      setAuthToken(token);
-    })
+    });
+
+    const token  =  response.data.access_token;
+    localStorage.setItem("token", token);
+    setAuthToken(token);
 
     return true;
   } catch (error) {
-    // console.error(error);
     return false;
   }
 };
-
 
 interface votar {
   id: number;
   votacao: number;
 }
+
 export const votar = async ({id, votacao} : votar) => {
   try {
     await api.put('http://localhost:3000/problemas/voto', {
       id: id,
       votacao: votacao
-    }).then((response) => {
-      console.log(response)
-    })
+    });
+
+    return true;
   } catch (error) {
-    console.error(error);
-    throw error
+    return false;
   }
 }
 
-
-
 const setAuthToken = (token: String) => {
-
   if (token) {
     api.defaults.headers.common['Authorization'] = `${token}`;
   } else {
     delete api.defaults.headers.common['Authorization'];
   }
-
 };
 
 const removeAuthToken = () => {
@@ -82,5 +75,3 @@ const removeAuthToken = () => {
 };
 
 export default { removeAuthToken, setAuthToken };
-
-
