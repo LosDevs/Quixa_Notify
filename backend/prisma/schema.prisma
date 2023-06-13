@@ -16,6 +16,7 @@ model Usuario {
   password String
   name     String
   problema Problema[]
+  company  Boolean    @default(false)
 
   @@map("usuario")
 }
@@ -35,6 +36,7 @@ model Problema {
   usuario         Usuario?     @relation(fields: [usuarioId], references: [id])
   usuarioId       Int?
   Comentario      Comentario[]
+  finalized       Boolean      @default(false)
 
   @@map("problema")
 }

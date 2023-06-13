@@ -10,8 +10,9 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
 import useGeoLocation from "./useGeoLocation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ICoordinates } from "../../types/ICoordinates";
+import { Link } from "react-router-dom";
 
 const markerIcon = new L.Icon({
   iconUrl: "../../../node_modules/bootstrap-icons/icons/geo-alt-fill.svg",
@@ -23,34 +24,64 @@ interface MapProps {
   locationClick: React.Dispatch<React.SetStateAction<ICoordinates>>
 }
 
+type Reclamationprops =  {
+  id : string;
+  titulo: string;
+  longitude: string;
+  latitude: string;
+  endereco: string;
+  tipo_problema: string;
+  nivel_gavidade: number;
+  descricao : string;
+  votacao: number;
+  imagem: string;
+}
+
+type PositionProps = {
+  id: any;
+  tipo: any;
+  pos: {
+    lat: number;
+    lon: number;  
+  };
+}
+
 const Map = ({locationClick} : MapProps) => {
   const [selectedLocation, setSelectedLocation] = useState({
     lat: 0,
     lng: 0,
   });
+  const [reclamations , setReclamations] = useState<Reclamationprops[]>([]);
+  const [positions, setPositions] = useState<PositionProps[]>([]);
 
   const location = useGeoLocation();
-  const location2 = {
-    loaded: true,
-    cordinates: {
-      lat: "-4.97913",
-      lng: "-39.0188",
-    },
-  };
-  const location3 = {
-    loaded: true,
-    cordinates: {
-      lat: "-4.97813",
-      lng: "-39.0288",
-    },
-  };
-  const location4 = {
-    loaded: true,
-    cordinates: {
-      lat: "-4.96513",
-      lng: "-39.0388",
-    },
-  };
+
+  useEffect(() => {
+    const dataFetch = async () => {
+      try {
+        await fetch('http://localhost:3000/problemas')
+        .then(res => res.json())
+        .then(data => {
+          setReclamations(data);
+
+          const positionsData: PositionProps[] = data.map((e: any) => ({
+            id: e.id,
+            tipo: e.tipo_problema,
+            pos: {
+              lat: parseFloat(e.latitude),
+              lon: parseFloat(e.longitude)
+            }
+          }));
+
+          setPositions(positionsData);
+        })
+      } catch (error) {
+        console.log(error)
+      } 
+    } 
+
+    dataFetch();
+  }, []);
 
   const handleMapClick = (event: any) => {
     const { lat, lng } = event.latlng;
@@ -80,27 +111,20 @@ const Map = ({locationClick} : MapProps) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {/* {location.loaded && !location.error && ( */}
-      {location.loaded && (
-        <Marker
-          draggable={true}
-          position={[
-            Number(location2.cordinates.lat),
-            Number(location2.cordinates.lng),
-          ]}
-          icon={markerIcon}
-        >
+      
+      {positions.map((position: any, index) => (
+        <Marker key={index} position={position.pos}>
           <Popup>
-            Reclamação 1 <br />
-            {location.cordinates.lat}, {location.cordinates.lng}
+            <strong>Tipo: </strong>
+            <span>{position.tipo}</span> 
+            <br /> 
+            <Link to={`/reclamation/${position.id}`}>Ver detalhes</Link>
           </Popup>
         </Marker>
-        
-      )}
+      ))};
+
       <MapClickHandler />
     </MapContainer>
   );
 };
 export default Map;
-
-// Localização de Quixadá Latitude: -4.97813, Longitude: -39.0188 4° 58′ 41″ Sul, 39° 1′ 8″ Oeste

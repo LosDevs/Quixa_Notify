@@ -39,3 +39,28 @@ export const get = async () => {
     console.log(error)
 }
 }
+
+export const addCommentInReclamation = async (commentText: string, idProblema: string | null) => {
+    if(idProblema === null ) {
+        return
+    }
+
+    try {
+        const token = localStorage.getItem('token') || '';
+        const content = {
+            comentario: commentText,
+            idproblema: idProblema
+        }
+        const headers = {
+            Authorization: `Bearer ${token}`, 
+            'Content-Type': 'application/json' 
+        };
+
+        const data = await api.post('http://localhost:3000/problemas/comentario', content, { headers });
+
+        const success = data.status === 201 ? true : false
+        return {success, data};
+    } catch(error) {
+        console.log(error)
+    }
+}

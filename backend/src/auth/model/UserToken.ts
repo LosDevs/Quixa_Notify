@@ -1,3 +1,6 @@
+import { UserPayload } from './UserPayload';
+
 export interface UserToken {
-    access_token: string;
+  data: UserPayload;
+  access_token: string;
 }

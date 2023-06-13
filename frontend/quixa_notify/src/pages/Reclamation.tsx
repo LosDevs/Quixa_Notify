@@ -1,6 +1,9 @@
+import { useState } from "react";
+
 import ReclamationOffcanvas from "../components/ReclamationOffcanvas";
 import Map from "../components/Map/Map";
-import { useEffect, useState } from "react";
+
+import "../stylesCss/Reclamation.css";
 
 const Reclamation = () => {
   const [selectedLocation, setSelectedLocation] = useState({
@@ -8,16 +11,11 @@ const Reclamation = () => {
     lng: ''
   });
 
-  useEffect(() => {
-    console.log(selectedLocation);
-  }, [selectedLocation]);
-
   return (
-    <>
-      <h1>Reclamações</h1>
-      <Map locationClick={setSelectedLocation}></Map>
+    <div className="map-container">
       <ReclamationOffcanvas location={selectedLocation}></ReclamationOffcanvas>
-    </>
+      <Map locationClick={setSelectedLocation}></Map>
+    </div>
   );
 };
 

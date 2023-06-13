@@ -1,9 +1,30 @@
-#footer{
-    color: white;
-    background-color: #000270;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-top: 1px solid #363636;
+#footer {
+  height: 8vh;
+  background-color:rgb(0, 11, 51);
+  color: white;
+  padding: 0 32px 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#footer p {
+  margin: 10px 0;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.social-icons a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.social-icons a:hover {
+  text-decoration: underline;
 }

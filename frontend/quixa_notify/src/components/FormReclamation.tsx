@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Map from "./Map/Map";
 import { ICoordinates } from "../types/ICoordinates";
 import { IProblema } from "../types/IProblema";
 import { create } from "../services/ReclamationService";
+import { AuthContext } from "../context/AuthContext";
 
 interface FormRaclamationProps {
   location: ICoordinates 
@@ -22,6 +23,7 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
     imagePreview: null,
   });
   const [image, setImage] = useState('')
+  const { isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
     setFormulario({
@@ -54,7 +56,10 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
   };  
   
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
+    if(!isAuthenticated) {
+      alert("É preciso estar logado para comentar");
+    }
     event.preventDefault();
     const formData = new FormData()
     formData.append('imagem', image)
@@ -67,7 +72,22 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
     formData.append('nivel_gravidade', formulario.nivel_gravidade.toString())
     formData.append('votacao', formulario.votacao.toString())
     console.log(formData)
-    create(formData)
+    await create(formData)
+
+    const newForm = {
+      titulo: "",
+      longitude: "",
+      latitude: "",
+      endereco: "",
+      tipo_problema: "",
+      nivel_gravidade: 0,
+      votacao: 0,
+      descricao : "",
+      image: [],
+      imagePreview: null,
+    }
+
+    setFormulario(newForm);
   };
 
   return (
@@ -163,6 +183,8 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
           </label>
           <input
             type="number"
+            max={10}
+            min={0}
             className="form-control"
             id="inputNivelGravidade"
             name="nivel_gravidade"

@@ -70,6 +70,12 @@ export class ProblemaController {
   }
 
   @IsPublic()
+  @Put('/finalizar/:id')
+  async finalizar(@Param('id') id) {
+    return await this.problemaService.finalizar(id);
+  }
+
+  @IsPublic()
   @Get('/problema/:id')
   async getProblema(@Param('id') id){
     return  await this.problemaService.getProblema(id);

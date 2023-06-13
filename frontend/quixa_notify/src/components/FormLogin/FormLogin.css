@@ -1,0 +1,28 @@
+ .row {  
+  margin: 0;
+  padding: 0;
+}
+
+.custom-text-color {
+  color: white;
+}
+
+.login-form-container {
+  margin-left: 100px;
+}
+
+.info { 
+  color: rgb(19, 66, 236);
+  text-shadow: 0 0 0 rgba(19, 66, 236, 0.8),
+          0 0 0 rgba(19, 66, 236, 0.8);
+}
+
+.invalid-field {
+  border: 2px solid red;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  text-transform: lowercase;
+}

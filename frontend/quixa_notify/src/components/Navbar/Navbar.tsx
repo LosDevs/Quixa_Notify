@@ -1,28 +1,68 @@
+import { useContext, useEffect, useState } from "react";
+import { NavLink, Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext'; 
+import { useNavigate } from "react-router-dom";
 
-import {NavLink, Link } from 'react-router-dom';
 import './Navbar.css';
-import {BsHouseDoorFill} from "react-icons/bs"
-
-
 
 function NavbarAuth() {
+  const { logout, isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [isCompany, setIsCompany] = useState(false); 
+
+  useEffect(() => {
+    const company = localStorage.getItem('isCompany')
+    if(company) {
+      setIsCompany(JSON.parse(company));
+    }
+  });
+
+  const handleLogout = () => {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('token');
+    localStorage.removeItem('isCompany');
+    setIsCompany(false);
+    logout();
+    navigate('/login'); 
+  }
+
   return (
     <nav id='nav'>
-      <Link to="/">QuixaNotify</Link>
+      <Link to="/">
+        <h3>QuixaNotify</h3>
+      </Link>
       <ul id='nav-links'>
-        <li>
-          {/* <NavLink to="/">
-            <BsHouseDoorFill/>
-          </NavLink> */}
-        </li>
-        <li><NavLink to="/login">
-          Login
-        </NavLink></li>
-        <li>
-          <NavLink to="/signup" >
-          Cadastre-se
-        </NavLink>
-        </li>
+        {!isAuthenticated && (
+          <>
+            <li>
+              <NavLink to="/login">Login</NavLink>
+            </li>
+            <li>
+              <NavLink to="/signup">Cadastre-se</NavLink>
+            </li>
+          </>
+        )}
+        {(isAuthenticated && !isCompany) && (
+          <>
+            <li>
+              <NavLink to="/my-reclamation">Minhas Reclamações</NavLink>
+            </li>
+          </>
+        )}
+        {(isCompany) && (
+          <>
+            <li>
+              <Link to={"/company"}>Dashboard</Link>
+            </li>
+          </>
+        )}
+        {(isAuthenticated) && (
+          <>
+            <li>
+              <button onClick={handleLogout} className="btn text-white">Sair</button>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );

@@ -1,5 +1,4 @@
-import FormLogin from "../components/FormLogin";
-import NavbarAuth from "../components/Navbar/Navbar";
+import FormLogin from "../components/FormLogin/FormLogin";
 
 const Login = () => {
   return (
