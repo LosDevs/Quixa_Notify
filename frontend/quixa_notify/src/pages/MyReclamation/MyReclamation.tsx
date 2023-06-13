@@ -50,8 +50,35 @@ const MyReclamation = () => {
                 {reclamations.map<any>((reclamation) => {
                     return <div key={reclamation.id} className='reclamation-item'>
                         <h3>{reclamation.titulo}</h3>
-                        <p className='descricao'>{reclamation.descricao}</p>
-                        <p className='endereco'>{reclamation.endereco}</p>
+
+                        <div className='descricao'>
+                            <h6>Descrição:</h6>
+                            <p>{reclamation.descricao}</p>
+                        </div>
+
+                        <div className='endereco'>
+                            <h6>Endereço:</h6>
+                            <p>{reclamation.endereco}</p>
+                        </div>
+                        
+                        <div className='footer-card'>
+
+                            <div className='footer-card-tipo'>
+                                <h6>Tipo do Problema:</h6>
+                                <p>{reclamation.tipo_problema}</p>
+                            </div>
+
+                            <div className='footer-card-interacoes'>
+                                <h6>Interações:</h6>
+                                <p>{reclamation.votacao}</p>
+                            </div>
+
+                            <div className='footer-card-imagem'>
+                                <img src={`http://localhost:3000/problemas/${reclamation.imagem}`} alt="imagem do problema" />
+                            </div>
+
+
+                        </div>
                     </div>
                 })}
             </section>

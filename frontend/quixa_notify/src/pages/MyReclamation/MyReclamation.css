@@ -3,7 +3,7 @@ h2 {
 }
 
 .reclamation-container {
-    background-color: red;
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,5 +22,30 @@ h2 {
 .reclamation-container .reclamation-item .descricao,
 .reclamation-container .reclamation-item .endereco {
     margin: 1em 1em;
-    background-color: blue;
 }
+
+.reclamation-container .reclamation-item .footer-card {
+    display: flex;
+    justify-content: space-between;
+    margin: 1em 1em;
+}
+
+.reclamation-container .reclamation-item .footer-card .footer-card-tipo, 
+.reclamation-container .reclamation-item .footer-card .footer-card-interacoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.reclamation-container .reclamation-item .footer-card .footer-card-imagem {
+    display: flex;
+    align-self: initial;
+    justify-content: end;
+}
+
+.reclamation-container .reclamation-item .footer-card img {
+    max-width: 30%;
+    max-height: 100%;
+    object-fit: contain;
+  }
