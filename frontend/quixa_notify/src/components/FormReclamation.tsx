@@ -183,6 +183,8 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
           </label>
           <input
             type="number"
+            max={10}
+            min={0}
             className="form-control"
             id="inputNivelGravidade"
             name="nivel_gravidade"
