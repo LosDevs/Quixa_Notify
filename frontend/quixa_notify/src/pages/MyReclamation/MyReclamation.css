@@ -9,6 +9,7 @@ h2 {
 }
 
 .reclamation-container .reclamation-item {
+    padding: 1.5em;
     border: 1px solid #000;
     width: 60%;
     margin: 20px auto;

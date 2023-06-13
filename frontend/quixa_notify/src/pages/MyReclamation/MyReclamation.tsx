@@ -29,7 +29,6 @@ const MyReclamation = () => {
                     if(idUser) {
                         const filteredReclamations = data.filter((reclamation: any) => reclamation.usuarioId == idUser);
                         setReclamations(filteredReclamations);
-                        console.log(filteredReclamations);
                     }
                     
                 })
