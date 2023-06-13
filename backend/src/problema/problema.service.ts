@@ -91,7 +91,6 @@ export class ProblemaService {
                     id : Number(`${id}`)
                 }
             })
-            console.log(problema)
             return problema
         } catch (error) {
             return { message: 'aconteceu algum problema', error }
@@ -108,7 +107,6 @@ export class ProblemaService {
                     Comentario : true
                 }
             })
-            console.log(problema)
             return problema
         } catch (error) {
             return { message: 'aconteceu algum problema', error }
@@ -130,7 +128,6 @@ export class ProblemaService {
                     comentario : String(comentario.comentario)
                 }
             })
-            console.log(comentarios)
             return { message: 'Problema criado com sucesso' }
         } catch (error) {
             return { message: 'aconteceu algum problema' + error }

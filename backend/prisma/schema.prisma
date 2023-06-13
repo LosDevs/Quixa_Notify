@@ -36,6 +36,7 @@ model Problema {
   usuario         Usuario?     @relation(fields: [usuarioId], references: [id])
   usuarioId       Int?
   Comentario      Comentario[]
+  finalized       Boolean      @default(false)
 
   @@map("problema")
 }
