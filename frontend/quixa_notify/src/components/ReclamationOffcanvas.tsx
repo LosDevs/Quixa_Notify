@@ -1,19 +1,15 @@
-import { useEffect, useState } from 'react';
-import { ICoordinates } from '../types/ICoordinates'
-import FormRaclamation from './FormReclamation'
-import Map from './Map/Map'
+import { useState } from 'react';
+import { ICoordinates } from '../types/ICoordinates';
 import { votar } from "../services/UserService";
-import { api } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
+import FormRaclamation from './FormReclamation';
 
 interface ReclamationOffCanvasProps {
-    location: ICoordinates 
+  location: ICoordinates,
 }
 
-
 const ReclamationOffcanvas = ({location}: ReclamationOffCanvasProps)=> {
-
     type props =  {
         id : string;
         titulo: string;
@@ -59,8 +55,20 @@ const ReclamationOffcanvas = ({location}: ReclamationOffCanvasProps)=> {
 
 
     return (
-        <div className='m-3'>  
-            <button className="btn btn-primary m-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasList" aria-controls="offcanvasList" onClick={buttonListar}>Listar</button>
+        <div style={{ display: 'flex', gap: '10px' }}>
+            <button className="btn btn-primary mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasReclamation" aria-controls="offcanvasReclamation">Fazer reclamação</button>
+
+            <div className="offcanvas offcanvas-end" data-bs-show="true" data-bs-scroll="true" data-bs-backdrop="false" tabIndex={-1} id="offcanvasReclamation" aria-labelledby="offcanvasReclamationLabel">
+                <div className="offcanvas-header">
+                    <h5 className="offcanvas-title" id="offcanvasReclamation">Cadastrar Reclamação</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div className="offcanvas-body">
+                    <FormRaclamation location={location}></FormRaclamation>
+                </div>
+            </div>
+
+            <button className="btn btn-secondary mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasList" aria-controls="offcanvasList" onClick={buttonListar}>Listar reclamações</button>
 
             <div className="offcanvas offcanvas-end" data-bs-show="true" data-bs-scroll="true" data-bs-backdrop="false" tabIndex={-1} id="offcanvasList" aria-labelledby="offcanvasListLabel">
                 <div className="offcanvas-header">
@@ -83,20 +91,8 @@ const ReclamationOffcanvas = ({location}: ReclamationOffCanvasProps)=> {
                     
                 </div>
             </div>
-
-            <button className="btn btn-primary m-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasReclamation" aria-controls="offcanvasReclamation">Reclamar</button>
-
-            <div className="offcanvas offcanvas-end" data-bs-show="true" data-bs-scroll="true" data-bs-backdrop="false" tabIndex={-1} id="offcanvasReclamation" aria-labelledby="offcanvasReclamationLabel">
-                <div className="offcanvas-header">
-                    <h5 className="offcanvas-title" id="offcanvasReclamation">Cadastrar Reclamação</h5>
-                    <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div className="offcanvas-body">
-                    <FormRaclamation location={location}></FormRaclamation>
-                </div>
-            </div>
         </div>
     )
 }
 
-export default ReclamationOffcanvas
+export default ReclamationOffcanvas;
