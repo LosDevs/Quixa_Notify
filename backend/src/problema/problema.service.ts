@@ -133,4 +133,21 @@ export class ProblemaService {
             return { message: 'aconteceu algum problema' + error }
         }
     }
+
+    async finalizar(id) {
+      try {
+        await this.prisma.problema.update({
+          where: {
+            id: parseInt(id)
+          },
+          data: {
+            finalized: true
+          }
+        });
+
+        return { message: "Problema finalizado com sucesso" }
+      } catch (error) {
+        return { message: 'Aconteceu algum problema' + error.message }
+      }
+    }
 }
