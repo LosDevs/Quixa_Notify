@@ -1,31 +1,53 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/UserService";
+
 import { AuthContext } from "../../context/AuthContext";
-import { api } from "../../services/api";
+
 import './FormLogin.css';
 
-/* eslint-disable prettier/prettier */
 const FormLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loginAC, isAuthenticated } = useContext(AuthContext);
-  useEffect(() => {});
+  const [invalidEmail, setInvalidEmail] = useState(false);
+  const [invalidPassword, setInvalidPassword] = useState(false);
+
+  const { loginAC } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
-  async function buttonLogin(event: { preventDefault: () => void }) {
+  async function buttonLogin(event: { preventDefault: () => void; }) {
     event.preventDefault();
 
+    // Remover indicadores de campos inválidos
+    setInvalidEmail(false);
+    setInvalidPassword(false);
+
+    let formValid = true;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      setInvalidEmail(true);
+      formValid = false;
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/;
+    if (!password || !passwordRegex.test(password)) {
+      setInvalidPassword(true);
+      formValid = false;
+    }
+
+    if (!formValid) {
+      return;
+    }
+
     try {
-      await login({ email: email, password: password }).then(
-        (res) => {
-          if(res) {
-            loginAC()
-            navigate("/");
-          }
-          
+      await login({ email: email, password: password }).then((res) => {
+        if (res) {
+          loginAC();
+          navigate("/");
         }
-      );
+      });
     } catch (error) {
       console.error(error);
     }
@@ -56,14 +78,16 @@ const FormLogin = () => {
                 </label>
                 <input
                   type="email"
-                  className="form-control form-control-sm rounded-pill"
+                  className={`form-control form-control-sm rounded-pill ${invalidEmail ? 'invalid-field' : ''}`}
                   id="exampleFormControlInput1"
                   placeholder="name@exemplo.com"
                   required={true}
                   onChange={(event) => {
                     setEmail(event.target.value);
+                    setInvalidEmail(false);
                   }}
                 />
+                {invalidEmail && <span className="error-message">Email inválido!</span>}
               </div>
               <div className="mb-3 form-group">
                 <label
@@ -75,13 +99,15 @@ const FormLogin = () => {
                 <input
                   type="password"
                   id="inputPassword5"
-                  className="form-control form-control-sm rounded-pill"
+                  className={`form-control form-control-sm rounded-pill ${invalidPassword ? 'invalid-field' : ''}`}
                   aria-labelledby="passwordHelpBlock"
                   required={true}
                   onChange={(event) => {
                     setPassword(event.target.value);
+                    setInvalidPassword(false);
                   }}
                 />
+                {invalidPassword && <span className="error-message">Senha inválida!</span>}
                 <div
                   id="passwordHelpBlock"
                   className="form-text custom-text-color"
