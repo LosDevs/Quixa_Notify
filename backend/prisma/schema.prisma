@@ -16,6 +16,7 @@ model Usuario {
   password String
   name     String
   problema Problema[]
+  company  Boolean    @default(false)
 
   @@map("usuario")
 }
