@@ -49,7 +49,7 @@ const MyReclamation = () => {
     }, []);
 
     return (
-        <>
+        <div className='p-5'>
             <h2>Minhas Reclamações</h2>
             <section className='reclamation-container'>
                 {reclamations.map<any>((reclamation) => {
@@ -85,7 +85,7 @@ const MyReclamation = () => {
                     </div>
                 })}
             </section>
-        </>
+        </div>
     )
 }
 
