@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 import './MyReclamation.css';
 
@@ -17,8 +18,14 @@ type props =  {
 
 const MyReclamation = () => {
     const [reclamations , setReclamations] = useState<props[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
+        const idUser = localStorage.getItem('userId');
+        if(!idUser) {
+            navigate('/login')
+        }
+
         const dataFetch = async () => {
             try {
                 await fetch('http://localhost:3000/problemas')
