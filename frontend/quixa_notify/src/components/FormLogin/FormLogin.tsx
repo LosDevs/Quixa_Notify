@@ -45,7 +45,15 @@ const FormLogin = () => {
       await login({ email: email, password: password }).then((res) => {
         if (res) {
           loginAC();
-          navigate("/");
+
+          const isCompanyString = localStorage.getItem('isCompany');
+          const isCompany = isCompanyString ? JSON.parse(isCompanyString) : false;
+          
+          if(isCompany) {
+            navigate("/company");
+          } else {
+            navigate("/");
+          }
         }
       });
     } catch (error) {

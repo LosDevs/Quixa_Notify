@@ -21,6 +21,7 @@ function NavbarAuth() {
     localStorage.removeItem('userId');
     localStorage.removeItem('token');
     localStorage.removeItem('isCompany');
+    setIsCompany(false);
     logout();
     navigate('/login'); 
   }
@@ -45,6 +46,13 @@ function NavbarAuth() {
           <>
             <li>
               <NavLink to="/my-reclamation">Minhas Reclamações</NavLink>
+            </li>
+          </>
+        )}
+        {(isCompany) && (
+          <>
+            <li>
+              <Link to={"/company"}>Dashboard</Link>
             </li>
           </>
         )}
