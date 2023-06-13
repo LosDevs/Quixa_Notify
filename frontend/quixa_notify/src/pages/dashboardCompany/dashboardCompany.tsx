@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { finalizarProblema } from "../../services/UserService";
 
 type props =  {
     id : string;
@@ -21,7 +22,6 @@ const DashboardCompany = () => {
             try {
                 const response = await fetch(`http://localhost:3000/problemas`);
                 const data = await response.json();
-                console.log(data)
                 setReclamations(data);
             } catch (error) {
               console.error(error);
@@ -31,13 +31,13 @@ const DashboardCompany = () => {
         fetchProblema();
     }, []);
 
-    async function finalizarProblema(id: string) {
+    async function finalizar(id: string) {
         try {
             await finalizarProblema(id);
 
-            fetch('http://localhost:3000/problemas')
-            .then(res => res.json())
-            .then(data => setReclamations(data));
+            const response = await fetch(`http://localhost:3000/problemas`);
+            const data = await response.json();
+            setReclamations(data);
         } catch (error) {
           console.error(error);
         }
@@ -81,7 +81,7 @@ const DashboardCompany = () => {
                         <p>Status: {reclamation.finalized ? 'Fechado' : 'Em Aberto'}</p>
 
                         {!reclamation.finalized && 
-                          <button className="btn btn-primary" onClick={() => finalizarProblema(reclamation.id)}>
+                          <button className="btn btn-primary" onClick={() => finalizar(reclamation.id)}>
                             FECHAR RECLAMAÇÃO
                           </button>
                         }
