@@ -88,7 +88,7 @@ const FormLogin = () => {
               />
               {invalidEmail && <span className="error-message">Email inválido!</span>}
             </div>
-            <div className="mb-1 form-group">
+            <div className="mb-3 form-group">
               <label
                 htmlFor="inputPassword5"
                 className="form-label custom-text-color"
@@ -117,7 +117,7 @@ const FormLogin = () => {
             </div>
             <div className="form-group mb-1">
               <button
-                className="btn btn-primary mb-3 w-100 "
+                className="btn btn-primary mb-3 w-100"
                 onClick={buttonLogin}
               >
                 Login

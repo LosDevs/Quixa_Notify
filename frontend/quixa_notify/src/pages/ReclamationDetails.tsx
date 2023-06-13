@@ -117,35 +117,36 @@ const ReclamationDetails = () => {
                             <p>{problema.endereco}</p>
 
                             <h4>Interações:</h4>
-                            <p>{problema.votacao} <button onClick={() => vota()}><FaThumbsUp/></button></p>
+                            <p>{problema.votacao} <button className='btn btn-primary' onClick={() => vota()}>
+                              <FaThumbsUp/>
+                            </button></p>
 
-                            <h4>Coméntários:</h4>
-                            <input 
-                                type="text" 
-                                placeholder='Adicione um comentário' 
-                                value={comment}
-                                onChange={handleInputChange}
-                            />
-                            <button onClick={addComment}>Enviar</button>
+                            <div className='comments-container'>
+                              <h4>Coméntários:</h4>
+                              <input 
+                                  type="text" 
+                                  placeholder='Adicione um comentário' 
+                                  value={comment}
+                                  onChange={handleInputChange}
+                              />
 
-                            <div className='container-comentarios'>
-                            
-                                {commentsArray.map((comment, index) => (
-                                    <div className="card mb-3" key={index}>
-                                        <div className="card-header">
-                                        Comentário
-                                        </div>
-                                        <div className="card-body">
-                                        <blockquote className="blockquote mb-0">
-                                            <p>{comment.comentario}</p>
-                                            <footer className="blockquote-footer">{comment.nome}</footer>
-                                        </blockquote>
-                                        </div>
-                                    </div>
-                                ))}
+                              <button className='btn btn-primary' onClick={addComment}>Enviar</button>
 
-                                
-
+                              <div className='container-comentarios'>
+                                  {commentsArray.map((comment, index) => (
+                                      <div className="card mb-3" key={index}>
+                                          <div className="card-header">
+                                          Comentário
+                                          </div>
+                                          <div className="card-body">
+                                          <blockquote className="blockquote mb-0">
+                                              <p>{comment.comentario}</p>
+                                              <footer className="blockquote-footer">{comment.nome}</footer>
+                                          </blockquote>
+                                          </div>
+                                      </div>
+                                  ))}
+                              </div>
                             </div>
                         </div>
                         ) : (

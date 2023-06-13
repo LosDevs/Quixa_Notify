@@ -39,10 +39,16 @@
   margin-bottom: 10px;
 }
 
+.comments-container {
+  margin: 20px 0 0 0;
+  padding: 20px 0 0 0;
+  border-top: 1px solid #ccc;
+}
+
+.comments-container .btn-primary {
+  margin-left: 10px;
+}
+
 .container-comentarios {
     margin-top: 30px;
-    min-height: 200px;
-    max-height: 400px;
-    overflow-y: scroll;
-    background-color: #ccc;
 }
