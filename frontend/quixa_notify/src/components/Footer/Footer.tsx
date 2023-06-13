@@ -5,7 +5,7 @@ import { FaInstagram, FaEnvelope, FaTwitter } from "react-icons/fa";
 const Footer = () => {
   return (
     <footer id="footer">
-      <div>
+        <p>Suporte: (XX) XXXX-XXXX</p>
         <p>QuixaNotify &copy;2023</p>
         <div className="social-icons">
           <a href="" target="_blank" rel="noopener noreferrer">
@@ -18,8 +18,6 @@ const Footer = () => {
             <FaEnvelope />
           </a>
         </div>
-        <p>Suporte: (XX) XXXX-XXXX</p>
-      </div>
     </footer>
   );
 };
