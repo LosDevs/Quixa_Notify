@@ -54,78 +54,76 @@ const FormLogin = () => {
   }
 
   return (
-    <div className="">
-      <div className="container-fluid align-items-center justify-content-center p-0 m-0 w-100">
-        <div className="row">
-          <div className="col-md-4 d-flex flex-column align-items-center justify-content-center logo-container">
-            <div>
-              <img src="logo1.png" alt="" width={300} />
-              <p className="info">
-                Faça uma reclamação e acompanhe os problemas que estão
-                acontecendo ao seu redor.
-              </p>
+    <div style={{ height: '84vh' }}>
+      <div className="row h-100">
+        <div className="col-md-4 d-flex flex-column align-items-center justify-content-center logo-container">
+          <div>
+            <img src="logo1.png" alt="" width={300} />
+            <p className="info">
+              Faça uma reclamação e acompanhe os problemas que estão
+              acontecendo ao seu redor.
+            </p>
+          </div>
+        </div>
+        <div className="col-md-6  d-flex flex-column align-items-center justify-content-center login-form-container">
+          <form className="d-flex flex-column">
+            <h4 className="mb-4 custom-text-color text-center">Login</h4>
+            <div className="mb-3 form-group">
+              <label
+                htmlFor="exampleFormControlInput1"
+                className="form-label custom-text-color"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                className={`form-control form-control-sm ${invalidEmail ? 'invalid-field' : ''}`}
+                id="exampleFormControlInput1"
+                placeholder="name@exemplo.com"
+                required={true}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                  setInvalidEmail(false);
+                }}
+              />
+              {invalidEmail && <span className="error-message">Email inválido!</span>}
             </div>
-          </div>
-          <div className="col-md-6  d-flex flex-column align-items-center justify-content-center login-form-container">
-            <form className="d-flex flex-column">
-              <h4 className="mb-4 custom-text-color text-center">Login</h4>
-              <div className="mb-3 form-group">
-                <label
-                  htmlFor="exampleFormControlInput1"
-                  className="form-label custom-text-color"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  className={`form-control form-control-sm rounded-pill ${invalidEmail ? 'invalid-field' : ''}`}
-                  id="exampleFormControlInput1"
-                  placeholder="name@exemplo.com"
-                  required={true}
-                  onChange={(event) => {
-                    setEmail(event.target.value);
-                    setInvalidEmail(false);
-                  }}
-                />
-                {invalidEmail && <span className="error-message">Email inválido!</span>}
+            <div className="mb-3 form-group">
+              <label
+                htmlFor="inputPassword5"
+                className="form-label custom-text-color"
+              >
+                Senha
+              </label>
+              <input
+                type="password"
+                id="inputPassword5"
+                className={`form-control form-control-sm ${invalidPassword ? 'invalid-field' : ''}`}
+                aria-labelledby="passwordHelpBlock"
+                required={true}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                  setInvalidPassword(false);
+                }}
+              />
+              {invalidPassword && <span className="error-message">Senha inválida!</span>}
+              <div
+                id="passwordHelpBlock"
+                className="form-text custom-text-color"
+              >
+                Sua senha tem que ter de 8 a 20 caracteres, letras maiúsculas,
+                minúsculas e números.
               </div>
-              <div className="mb-3 form-group">
-                <label
-                  htmlFor="inputPassword5"
-                  className="form-label custom-text-color"
-                >
-                  Senha
-                </label>
-                <input
-                  type="password"
-                  id="inputPassword5"
-                  className={`form-control form-control-sm rounded-pill ${invalidPassword ? 'invalid-field' : ''}`}
-                  aria-labelledby="passwordHelpBlock"
-                  required={true}
-                  onChange={(event) => {
-                    setPassword(event.target.value);
-                    setInvalidPassword(false);
-                  }}
-                />
-                {invalidPassword && <span className="error-message">Senha inválida!</span>}
-                <div
-                  id="passwordHelpBlock"
-                  className="form-text custom-text-color"
-                >
-                  Sua senha tem que ter de 8 a 20 caracteres, letras maiúsculas,
-                  minúsculas e números.
-                </div>
-              </div>
-              <div className="form-group mb-3">
-                <button
-                  className="btn btn-primary mb-3 w-100 rounded-pill "
-                  onClick={buttonLogin}
-                >
-                  Login
-                </button>
-              </div>
-            </form>
-          </div>
+            </div>
+            <div className="form-group mb-3">
+              <button
+                className="btn btn-primary mb-3 w-100 "
+                onClick={buttonLogin}
+              >
+                Login
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

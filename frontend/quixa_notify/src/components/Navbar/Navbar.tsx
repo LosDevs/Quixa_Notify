@@ -1,17 +1,13 @@
-
-import {NavLink, Link } from 'react-router-dom';
 import { useContext } from "react";
-import './Navbar.css';
-import {BsHouseDoorFill} from "react-icons/bs"
+import { NavLink, Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext'; 
 import { useNavigate } from "react-router-dom";
 
-
+import './Navbar.css';
 
 function NavbarAuth() {
   const { logout, isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
-
 
   const handleLogout = () => {
     logout();
@@ -20,7 +16,9 @@ function NavbarAuth() {
 
   return (
     <nav id='nav'>
-      <Link to="/">QuixaNotify</Link>
+      <Link to="/">
+        <h3>QuixaNotify</h3>
+      </Link>
       <ul id='nav-links'>
         {!isAuthenticated && (
           <>

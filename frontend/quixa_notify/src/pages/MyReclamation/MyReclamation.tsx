@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import './MyReclamation.css';
 
 type props =  {
@@ -40,12 +41,9 @@ const MyReclamation = () => {
         dataFetch();
     }, []);
 
-    
-
     return (
         <>
             <h2>Minhas Reclamações</h2>
-
             <section className='reclamation-container'>
                 {reclamations.map<any>((reclamation) => {
                     return <div key={reclamation.id} className='reclamation-item'>
@@ -76,13 +74,10 @@ const MyReclamation = () => {
                             <div className='footer-card-imagem'>
                                 <img src={`http://localhost:3000/problemas/${reclamation.imagem}`} alt="imagem do problema" />
                             </div>
-
-
                         </div>
                     </div>
                 })}
             </section>
-            
         </>
     )
 }

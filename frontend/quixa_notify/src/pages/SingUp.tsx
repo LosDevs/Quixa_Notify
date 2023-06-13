@@ -1,9 +1,11 @@
-import FormSignUp from "../components/FormSignUp/FormSignUp"
+import FormSignUp from "../components/FormSignUp/FormSignUp";
 
 const SingUp = ()=> {
-    return (
-        <FormSignUp></FormSignUp>
-    )
+  return (
+    <>
+      <FormSignUp></FormSignUp>
+    </>
+  );
 }
 
-export default SingUp
+export default SingUp;

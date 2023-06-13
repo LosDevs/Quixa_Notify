@@ -1,0 +1,22 @@
+.home-container {
+  min-height: 84vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-container .reclamation-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.home-container .reclamation-link h3 {
+  color: black;
+  margin: 0;
+}
+
+.home-container .reclamation-link h3 > span {
+  color: #253267;
+}

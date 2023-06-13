@@ -80,8 +80,8 @@ const FormSignUp = () => {
   }
 
   return (
-    <div className="container-fluid d-flex align-items-center justify-content-center gradient-bg body">
-      <div className="row">
+    <div style={{ height: '84vh' }}>
+      <div className="row h-100">
         <div className="col-md-4 d-flex flex-column align-items-center justify-content-center logo-container">
           <div>
             <img src="logo1.png" alt="" width={300} />
@@ -106,7 +106,7 @@ const FormSignUp = () => {
               <input
                 ref={inputNameRef}
                 type="text"
-                className="form-control form-control-sm rounded-pill"
+                className="form-control form-control-sm"
                 id="inputName"
                 placeholder="Seu nome completo"
                 onChange={(event) => {
@@ -128,7 +128,7 @@ const FormSignUp = () => {
               <input
                 ref={inputEmailRef}
                 type="email"
-                className="form-control form-control-sm rounded-pill"
+                className="form-control form-control-sm"
                 id="inputEmail"
                 placeholder="name@exemplo.com"
                 onChange={(event) => {
@@ -151,7 +151,7 @@ const FormSignUp = () => {
                 ref={inputNewPasswordRef}
                 type="password"
                 id="inputNewPassword"
-                className="form-control form-control-sm rounded-pill"
+                className="form-control form-control-sm"
                 aria-labelledby="passwordHelpBlock"
                 onChange={(event) => {
                   setPassword(event.target.value);
@@ -180,7 +180,7 @@ const FormSignUp = () => {
                 ref={inputConfirmPasswordRef}
                 type="password"
                 id="inputConfirmPassword"
-                className="form-control form-control-sm rounded-pill"
+                className="form-control form-control-sm"
                 aria-labelledby="passwordHelpBlock"
                 onChange={(event) => {
                   setConfirmPassword(event.target.value);
@@ -197,7 +197,7 @@ const FormSignUp = () => {
 
             <div className="form-group mb-3">
               <button
-                className="btn btn-primary mb-3 w-100 rounded-pill"
+                className="btn btn-primary mb-3 w-100"
                 onClick={buttonSingUp}
               >
                 Cadastrar
