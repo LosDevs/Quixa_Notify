@@ -54,7 +54,7 @@ const FormLogin = () => {
   }
 
   return (
-    <div style={{ height: '84vh' }}>
+    <div className="gradient-background">
       <div className="row h-100">
         <div className="col-md-4 d-flex flex-column align-items-center justify-content-center logo-container">
           <div>
@@ -68,7 +68,7 @@ const FormLogin = () => {
         <div className="col-md-6  d-flex flex-column align-items-center justify-content-center login-form-container">
           <form className="d-flex flex-column">
             <h4 className="mb-4 custom-text-color text-center">Login</h4>
-            <div className="mb-3 form-group">
+            <div className="mb-1 form-group">
               <label
                 htmlFor="exampleFormControlInput1"
                 className="form-label custom-text-color"
@@ -88,7 +88,7 @@ const FormLogin = () => {
               />
               {invalidEmail && <span className="error-message">Email inválido!</span>}
             </div>
-            <div className="mb-3 form-group">
+            <div className="mb-1 form-group">
               <label
                 htmlFor="inputPassword5"
                 className="form-label custom-text-color"
@@ -115,7 +115,7 @@ const FormLogin = () => {
                 minúsculas e números.
               </div>
             </div>
-            <div className="form-group mb-3">
+            <div className="form-group mb-1">
               <button
                 className="btn btn-primary mb-3 w-100 "
                 onClick={buttonLogin}

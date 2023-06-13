@@ -1,7 +1,6 @@
  .row {  
   margin: 0;
   padding: 0;
-  background: linear-gradient(to right, transparent, rgba(7, 18, 40, 0.4), rgb(7, 18, 40));
 }
 
 .custom-text-color {
