@@ -31,6 +31,18 @@ const DashboardCompany = () => {
         fetchProblema();
     }, []);
 
+    async function finalizarProblema(id: string) {
+        try {
+            await finalizarProblema(id);
+
+            fetch('http://localhost:3000/problemas')
+            .then(res => res.json())
+            .then(data => setReclamations(data));
+        } catch (error) {
+          console.error(error);
+        }
+    }
+
     return (
         <div className="p-5">
             <h2>Tela da Empresa</h2>
@@ -67,6 +79,12 @@ const DashboardCompany = () => {
                         </div>
 
                         <p>Status: {reclamation.finalized ? 'Fechado' : 'Em Aberto'}</p>
+
+                        {reclamation.finalized && 
+                          <button className="btn btn-primary" onClick={() => finalizarProblema}>
+                            FECHAR RECLAMAÇÃO
+                          </button>
+                        }
                     </div>
                 })}
             </section>

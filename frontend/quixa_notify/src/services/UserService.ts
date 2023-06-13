@@ -68,6 +68,16 @@ export const votar = async ({id, votacao} : votar) => {
   }
 }
 
+export const finalizarProblema = async (id: string) => {
+  try {
+    await api.put(`http://localhost:3000/problemas/finalizar/${id}`);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 const setAuthToken = (token: String) => {
   if (token) {
     api.defaults.headers.common['Authorization'] = `${token}`;
