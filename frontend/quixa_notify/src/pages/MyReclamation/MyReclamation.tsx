@@ -22,7 +22,8 @@ const MyReclamation = () => {
 
     useEffect(() => {
         const idUser = localStorage.getItem('userId');
-        if(!idUser) {
+        const isCompany = localStorage.getItem('isCompany');
+        if(!idUser || isCompany) {
             navigate('/login')
         }
 
