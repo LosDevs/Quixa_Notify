@@ -2,6 +2,7 @@ import { ProblemaDto } from './dto/create-problema-dto';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -93,5 +94,11 @@ export class ProblemaController {
     @CurrentUser() user: User,
   ) {
     return this.problemaService.postComentario(comentario, user);
+  }
+
+
+  @Delete('delete/:id')
+  async deleteProblema(@Param('id') id, @CurrentUser() user: User){
+    return await this.problemaService.deleteProblema(id, user)
   }
 }

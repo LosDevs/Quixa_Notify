@@ -150,4 +150,19 @@ export class ProblemaService {
         return { message: 'Aconteceu algum problema' + error.message }
       }
     }
+
+    async deleteProblema(id, user){
+        try {
+        if(id == user.id){
+            const problema = await this.prisma.problema.delete({
+                where :  {
+                    id : Number(`${id}`)
+                },
+            })
+            return { message: "Problema deletado com sucesso", problema }
+        }
+        } catch (error) {
+            return { message: 'Aconteceu algum problema' + error.message }
+        }
+    }
 }
