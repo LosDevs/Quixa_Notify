@@ -1,0 +1,11 @@
+.listar {
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+
+.card-principal {
+    margin-bottom: 10px;
+    padding: 10px 10px 10px 10px;
+    background-color: rgba(36, 50, 102, 1);
+}

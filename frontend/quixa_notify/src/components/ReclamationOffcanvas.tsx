@@ -6,48 +6,48 @@ import { useNavigate } from "react-router-dom";
 import FormRaclamation from './FormReclamation';
 
 interface ReclamationOffCanvasProps {
-  location: ICoordinates,
+    location: ICoordinates,
 }
 
-const ReclamationOffcanvas = ({location}: ReclamationOffCanvasProps)=> {
-    type props =  {
-        id : string;
+const ReclamationOffcanvas = ({ location }: ReclamationOffCanvasProps) => {
+    type props = {
+        id: string;
         titulo: string;
         longitude: string;
         latitude: string;
         endereco: string;
         tipo_problema: string;
         nivel_gavidade: number;
-        descricao : string;
+        descricao: string;
         votacao: number;
         imagem: string;
     }
 
-    const [rep , setRep] = useState<props[]>([]);
+    const [rep, setRep] = useState<props[]>([]);
 
     const navigate = useNavigate();
-    
-    async function buttonListar(event : any) {
+
+    async function buttonListar(event: any) {
         event.preventDefault();
         try {
             fetch('http://localhost:3000/problemas')
-            .then(res => res.json())
-            .then(data => setRep(data))
+                .then(res => res.json())
+                .then(data => setRep(data))
         } catch (error) {
             console.log(error)
         }
     }
 
-    async function vota(voto:any) {
+    async function vota(voto: any) {
         try {
             await votar(voto)
             fetch('http://localhost:3000/problemas')
-            .then(res => res.json())
-            .then(data => setRep(data))
+                .then(res => res.json())
+                .then(data => setRep(data))
         } catch (error) {
-            
+
         }
-    }   
+    }
 
     function navigateForDetailsReclamation(id: any) {
         navigate(`/reclamation/${id}`)
@@ -76,19 +76,19 @@ const ReclamationOffcanvas = ({location}: ReclamationOffCanvasProps)=> {
                     <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body">
-                {rep.map<any>((rep) => {
-                    return <div key={rep.id}>
-                        <div className="card">
-                        <img width={400} height={300} src={'http://localhost:3000/problemas/'+rep.imagem} alt=" " className="card-img-top"></img>
-                        <div className="card-body">
-                            <h5 className="card-title">{rep.titulo}</h5>
-                            <p className="card-text">{rep.descricao}.</p>
-                            <a onClick={() => navigateForDetailsReclamation(rep.id)}className="btn btn-primary">Ver mais</a>
+                    {rep.map<any>((rep) => {
+                        return <div key={rep.id}>
+                            <div className="card">
+                                <img width={400} height={300} src={'http://localhost:3000/problemas/' + rep.imagem} alt=" " className="card-img-top"></img>
+                                <div className="card-body">
+                                    <h5 className="card-title">{rep.titulo}</h5>
+                                    <p className="card-text">{rep.descricao}.</p>
+                                    <a onClick={() => navigateForDetailsReclamation(rep.id)} className="btn btn-primary">Ver mais</a>
+                                </div>
+                            </div>
                         </div>
-                        </div>
-                    </div>
-                })}
-                    
+                    })}
+
                 </div>
             </div>
         </div>

@@ -3,18 +3,18 @@ import { useParams } from 'react-router-dom';
 import { FaThumbsUp } from 'react-icons/fa';
 import '../stylesCss/ReclamationDetails.css'
 import { votar } from '../services/UserService';
-import { AuthContext } from '../context/AuthContext'; 
+import { AuthContext } from '../context/AuthContext';
 import { addCommentInReclamation } from '../services/ReclamationService';
-
-type props =  {
-    id : string;
+import './ReclamationDetails.css';
+type props = {
+    id: string;
     titulo: string;
     longitude: string;
     latitude: string;
     endereco: string;
     tipo_problema: string;
     nivel_gavidade: number;
-    descricao : string;
+    descricao: string;
     votacao: number;
     imagem: string;
 }
@@ -38,21 +38,21 @@ const ReclamationDetails = () => {
 
     useEffect(() => {
         const fetchProblema = async () => {
-          try {
-            const response = await fetch(`http://localhost:3000/problemas/problema/${id}`);
-            const data = await response.json();
-            setProblema(data);
+            try {
+                const response = await fetch(`http://localhost:3000/problemas/problema/${id}`);
+                const data = await response.json();
+                setProblema(data);
 
-            const comments = await fetch(`http://localhost:3000/problemas/comentario/${id}`)
-            const data2 = await comments.json();
-            setCommentsArray(data2.Comentario)
+                const comments = await fetch(`http://localhost:3000/problemas/comentario/${id}`)
+                const data2 = await comments.json();
+                setCommentsArray(data2.Comentario)
 
 
-          } catch (error) {
-            console.error(error);
-          }
+            } catch (error) {
+                console.error(error);
+            }
         };
-    
+
         fetchProblema();
     }, [id, refresh]);
 
@@ -64,101 +64,147 @@ const ReclamationDetails = () => {
         try {
             const id: number = Number(problema?.id);
             const votacao: number = Number(problema?.votacao);
-            await votar({id, votacao})
+            await votar({ id, votacao })
             fetch('http://localhost:3000/problemas')
-            .then(res => res.json())
-            .then(data => {
-                const objetoEncontrado = data.find((objeto: any) => objeto.id === id);
-                setProblema(objetoEncontrado)
-            })
+                .then(res => res.json())
+                .then(data => {
+                    const objetoEncontrado = data.find((objeto: any) => objeto.id === id);
+                    setProblema(objetoEncontrado)
+                })
         } catch (error) {
-            
-        }
-    } 
 
-    function addComment () {
-        if(comment !== '') {
-            if(isAuthenticated) {
+        }
+    }
+
+    function addComment() {
+        if (comment !== '') {
+            if (isAuthenticated) {
                 const id = problema?.id ? problema?.id : null
                 const postComment = addCommentInReclamation(comment, id).then(
                     (res) => {
-                        if(res?.success) {
+                        if (res?.success) {
                             setComment('');
                             setRefresh(!refresh);
                         }
                     }
                 );
-            }else {
+            } else {
                 alert('É preciso estar logado para comentar')
             }
-        }else {
+        } else {
             alert('É preciso adicionar um texto para comentar')
         }
     }
 
     return (
         <div>
-        {problema ? (
-            <div className="container">
-              <div className="row justify-content-center">
-                    <div className="col-md-6 reclamation-details">
-                    {problema ? (
-                        <div className='content-container'>
-                            <h1>Detalhes da Reclamação: {problema.titulo}</h1>
-                            
-                            <div className='img-container'>
-                                <img src={`http://localhost:3000/problemas/${problema.imagem}`} alt="imagem do problema"/>
+            {problema ? (
+                <div className="container">
+                    <div className="card mb-3 card-tamanho">
+
+                        <div className="row g-0">
+                            <div className="col-md-4">
+                                <img src={`http://localhost:3000/problemas/${problema.imagem}`} className="img-fluid rounded-start" alt="..."></img>
                             </div>
+                            <div className="col-md-8">
+                                <div className="card-body">
+                                    <h3>Titulo : </h3>
+                                    <h5 className="card-title">{problema.titulo}</h5>
+                                    <h4>Descrição : </h4>
+                                    <p className="card-text">{problema.descricao}</p>
+                                    <div className='position-absolute top-0 end-0 m-2'>
+                                        <h2 className="card-text">Votação: {problema.votacao}</h2>
+                                        <button className='btn btn-primary position-absolute  end-0 m-2' onClick={() => vota()}>
+                                            <FaThumbsUp />
+                                        </button>
 
-                            <h4>Descrição:</h4>
-                            <p>{problema.descricao}</p>
-
-                            <h4>Endereço:</h4>
-                            <p>{problema.endereco}</p>
-
-                            <h4>Interações:</h4>
-                            <p>{problema.votacao} <button className='btn btn-primary' onClick={() => vota()}>
-                              <FaThumbsUp/>
-                            </button></p>
-
-                            <div className='comments-container'>
-                              <h4>Coméntários:</h4>
-                              <input 
-                                  type="text" 
-                                  placeholder='Adicione um comentário' 
-                                  value={comment}
-                                  onChange={handleInputChange}
-                              />
-
-                              <button className='btn btn-primary' onClick={addComment}>Enviar</button>
-
-                              <div className='container-comentarios'>
-                                  {commentsArray.map((comment, index) => (
-                                      <div className="card mb-3" key={index}>
-                                          <div className="card-header">
-                                          Comentário
-                                          </div>
-                                          <div className="card-body">
-                                          <blockquote className="blockquote mb-0">
-                                              <p>{comment.comentario}</p>
-                                              <footer className="blockquote-footer">{comment.nome}</footer>
-                                          </blockquote>
-                                          </div>
-                                      </div>
-                                  ))}
-                              </div>
+                                    </div>
+                                    <p className="card-text"><small className="text-muted"><strong>Endereço: </strong>{problema.endereco}</small></p>
+                                </div>
                             </div>
                         </div>
-                        ) : (
-                            <p>Carregando...</p>
-                        )}
+                    </div>
+
+                
+                    <div className="row justify-content-center">
+                        <div className="col-md-6 reclamation-details">
+                            {problema ? (
+                                <div className='content-container'>
+                                    {/* <h1>Titulo: <br></br>{problema.titulo}</h1>
+
+                                    <div className='img-container'>
+                                        <img src={`http://localhost:3000/problemas/${problema.imagem}`} alt="imagem do problema" />
+                                    </div>
+
+                                    <h4>Descrição:</h4>
+                                    <p>{problema.descricao}</p>
+
+                                    <h4>Endereço:</h4>
+                                    <p>{problema.endereco}</p>
+
+                                    <h4>Interações:</h4>
+                                    <p>{problema.votacao} <button className='btn btn-primary' onClick={() => vota()}>
+                                        <FaThumbsUp />
+                                    </button></p> */}
+
+                                    <div className='comments-container'>
+                                        <h4>Coméntários:</h4>
+                                        <textarea
+                                            placeholder='Adicione um comentário'
+                                            value={comment}
+                                            onChange={handleInputChange}
+                                            className="form-control" id="exampleFormControlTextarea1">
+                                        </textarea>
+
+                                        {/* <input
+                                            type="text"
+                                            placeholder='Adicione um comentário'
+                                            value={comment}
+                                            onChange={handleInputChange}
+                                        /> */}
+
+                                        <button className='btn btn-primary  btn-enviar' onClick={addComment}>Enviar</button>
+
+                                        <div className='container-comentarios'>
+                                            <div className="card mb-3">
+                                                <div className="card-header cor-comentario">
+                                                    Comentário
+                                                </div>
+
+                                                <div className="card-body">
+                                                    <blockquote className="blockquote mb-0">
+                                                        <p>asdasd</p>
+                                                        <footer className="blockquote-footer">qweqweq</footer>
+                                                    </blockquote>
+                                                </div>
+                                            </div>
+                                            {commentsArray.map((comment, index) => (
+                                                <div className="card mb-3" key={index}>
+                                                    <div className="card-header">
+                                                        Comentário
+                                                    </div>
+
+                                                    <div className="card-body">
+                                                        <blockquote className="blockquote mb-0">
+                                                            <p>{comment.comentario}</p>
+                                                            <footer className="blockquote-footer">{comment.nome}</footer>
+                                                        </blockquote>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <p>Carregando...</p>
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
-        ) : (
-          <p>Carregando...</p>
-        )}
-      </div>
+            ) : (
+                <p>Carregando...</p>
+            )}
+        </div>
     )
 }
 
