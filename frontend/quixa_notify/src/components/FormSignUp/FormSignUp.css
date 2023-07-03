@@ -2,6 +2,39 @@
     color: white;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  background-color:white;
+}
+
+.cadastro {
+  background-color: rgba(36, 50, 102, 1);
+  border-radius: 10px 0px 0px 10px;
+}
+
+
+
+.texto {
+  font-size: 40px;
+}
+
+.logo {
+  height: 300px;
+}
+
+.principal {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+.logo-container {
+  margin-left: 100px;
+  margin-bottom: 50px;
+}
+
 .login-form-container {
     margin-left: 100px;
 }

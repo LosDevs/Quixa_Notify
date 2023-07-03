@@ -80,20 +80,20 @@ const FormSignUp = () => {
   }
 
   return (
-    <div className="gradient-background">
-      <div className="row h-100">
-        <div className="col-md-4 d-flex flex-column align-items-center justify-content-center logo-container">
+    <div className="background">
+      <div className="row h-100 principal">
+        <div className="col-md-4 d-flex logo-container">
           <div>
-            <img src="logo1.png" alt="" width={300} />
+            <img className="logo" src="logo1.png" alt="" width={300} />
             <p className="info">
               Faça uma reclamação e acompanhe os problemas que estão acontecendo
               ao seu redor.
             </p>
           </div>
         </div>
-        <div className="col-md-6 d-flex flex-column align-items-center justify-content-center login-form-container">
-          <form className="d-flex flex-column">
-            <h4 className="mb-4 custom-text-color text-center mt-4">
+        <div className="cadastro col-md-6 d-flex flex-column align-items-center  login-form-container">
+          <form className="formulario d-flex flex-column">
+            <h4 className="mb-4 for-1 custom-text-color texto text-center mt-4">
               Faça seu cadastro
             </h4>
             <div className="mb-1 form-group">
@@ -118,7 +118,7 @@ const FormSignUp = () => {
               </span>
             </div>
 
-            <div className="mb-1 form-group">
+            <div className="mb-1 for form-group">
               <label
                 htmlFor="inputEmail"
                 className="form-label custom-text-color"
@@ -169,7 +169,7 @@ const FormSignUp = () => {
               </div>
             </div>
 
-            <div className="mb-1 form-group">
+            <div className="mb-1 for form-group">
               <label
                 htmlFor="inputConfirmPassword"
                 className="form-label custom-text-color"
@@ -195,7 +195,7 @@ const FormSignUp = () => {
               ></div>
             </div>
 
-            <div className="form-group mt-3">
+            <div className="form-group bt-1 mt-3">
               <button
                 className="btn btn-primary mb-3 w-100"
                 onClick={buttonSingUp}

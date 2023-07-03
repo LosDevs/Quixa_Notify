@@ -62,21 +62,22 @@ const FormLogin = () => {
   }
 
   return (
-    <div className="gradient-background">
-      <div className="row h-100">
-        <div className="col-md-4 d-flex flex-column align-items-center justify-content-center logo-container">
+    <div className="background">
+      <div className="row h-100 principal">
+        <div className="col-md-4 logo-container">
           <div>
-            <img src="logo1.png" alt="" width={300} />
+            <img className="logo" src="logo1.png" alt="" width={300} />
             <p className="info">
               Faça uma reclamação e acompanhe os problemas que estão
               acontecendo ao seu redor.
             </p>
           </div>
         </div>
-        <div className="col-md-6  d-flex flex-column align-items-center justify-content-center login-form-container">
-          <form className="d-flex flex-column">
-            <h4 className="mb-4 custom-text-color text-center">Login</h4>
-            <div className="mb-1 form-group">
+        <div className="login col-md-6  d-flex flex-column align-items-center justify-content-center login-form-container">
+          <form className="d-flex
+          formulario flex-column">
+            <h4 className="mb-4 custom-text-color texto text-center">Login</h4>
+            <div className="mb-1 for form-group">
               <label
                 htmlFor="exampleFormControlInput1"
                 className="form-label custom-text-color"
@@ -96,7 +97,7 @@ const FormLogin = () => {
               />
               {invalidEmail && <span className="error-message">Email inválido!</span>}
             </div>
-            <div className="mb-3 form-group">
+            <div className="mb-3 for form-group">
               <label
                 htmlFor="inputPassword5"
                 className="form-label custom-text-color"
