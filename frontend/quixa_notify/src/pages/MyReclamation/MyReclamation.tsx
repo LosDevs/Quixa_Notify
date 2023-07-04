@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { finalizarProblema } from "../../services/UserService";
 
 import './MyReclamation.css';
 
@@ -14,15 +15,18 @@ type props =  {
   descricao : string;
   votacao: number;
   imagem: string;
+  finalized: boolean;
+  usuarioId: number;
 }
 
 const MyReclamation = () => {
     const [reclamations , setReclamations] = useState<props[]>([]);
+
     const navigate = useNavigate();
 
     useEffect(() => {
-      const idUser = JSON.parse(localStorage.getItem('userId') || '');
-      const isCompany = JSON.parse(localStorage.getItem('isCompany') || '');
+      const idUser = JSON.parse(localStorage.getItem('userId') || 'null');
+      const isCompany = JSON.parse(localStorage.getItem('isCompany') || 'null');
 
       if(!idUser || isCompany) {
         navigate('/login');
@@ -49,38 +53,55 @@ const MyReclamation = () => {
       dataFetch();
     }, []);
 
+    async function finalizar(id: string) {
+        try {
+            await finalizarProblema(id);
+
+            const response = await fetch(`http://localhost:3000/problemas`);
+            const data = await response.json();
+            setReclamations(data);
+        } catch (error) {
+          console.error(error);
+        }
+    }
+
+    function navigateForDetailsReclamation(id: any) {
+      navigate(`/reclamation/${id}`);
+    }
+
     return (
       <div className='p-5'>
         <h2>Minhas Reclamações</h2>
         <section className='reclamation-container'>
           {reclamations.map<any>((reclamation) => {
             return <div key={reclamation.id} className='reclamation-item'>
-              <h3>{reclamation.titulo}</h3>
+              <h3 className='mb-4'>{reclamation.titulo}</h3>
 
-              <div className='descricao'>
-                <h6>Descrição:</h6>
-                <p>{reclamation.descricao}</p>
-              </div>
-
-              <div className='endereco'>
-                <h6>Endereço:</h6>
-                <p>{reclamation.endereco}</p>
+              <div className='row mb-2'>
+                <h5 className='col'>Descrição: {reclamation.descricao}</h5>
               </div>
               
-              <div className='footer-card'>
-                <div className='footer-card-tipo'>
-                    <h6>Tipo do Problema:</h6>
-                    <p>{reclamation.tipo_problema}</p>
-                </div>
+              <div className="row mb-2">
+                <h5 className='col'>Endereço: {reclamation.endereco}</h5>
+              </div>
 
-                <div className='footer-card-interacoes'>
-                    <h6>Interações:</h6>
-                    <p>{reclamation.votacao}</p>
-                </div>
+              <div className='row mb-2'>
+                <h5 className='col-6'>Tipo do Problema: {reclamation.tipo_problema}</h5>
+                <h5 className='col-3'>Interações: {reclamation.votacao}</h5>
+              </div>
 
-                <div className='footer-card-imagem'>
-                    <img src={`http://localhost:3000/problemas/${reclamation.imagem}`} alt="imagem do problema" />
-                </div>
+              <div className='footer-card-imagem mb-3'>
+                <img src={`http://localhost:3000/problemas/${reclamation.imagem}`} alt="imagem do problema" />
+              </div>
+
+              <div className='row g-2'>
+                <a onClick={() => navigateForDetailsReclamation(reclamation.id)} className="btn btn-primary">
+                  VER MAIS
+                </a>
+
+                <button className="btn btn-secondary" onClick={() => finalizar(reclamation.id)}>
+                  FECHAR RECLAMAÇÃO
+                </button>
               </div>
             </div>
           })}

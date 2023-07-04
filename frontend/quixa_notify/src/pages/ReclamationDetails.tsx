@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FaThumbsUp } from 'react-icons/fa';
-import { votar } from '../services/UserService';
+import { finalizarProblema, votar } from '../services/UserService';
 import { AuthContext } from '../context/AuthContext';
 import { addCommentInReclamation } from '../services/ReclamationService';
 
@@ -19,6 +19,7 @@ type props = {
     descricao: string;
     votacao: number;
     imagem: string;
+    usuarioId: number;
 }
 
 type propsComement = {
@@ -32,29 +33,35 @@ type propsComement = {
 const ReclamationDetails = () => {
     const { id } = useParams();
 
+    const [userId, setUserId] = useState(-1);
     const [problema, setProblema] = useState<props>();
     const [commentsArray, setCommentsArray] = useState<propsComement[] | []>([]);
     const [comment, setComment] = useState('');
     const [refresh, setRefresh] = useState(false);
     const { isAuthenticated } = useContext(AuthContext);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
-        const fetchProblema = async () => {
-            try {
-                const response = await fetch(`http://localhost:3000/problemas/problema/${id}`);
-                const data = await response.json();
-                setProblema(data);
-
-                const comments = await fetch(`http://localhost:3000/problemas/comentario/${id}`)
-                const data2 = await comments.json();
-                setCommentsArray(data2.Comentario);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchProblema();
+      const userId = JSON.parse(localStorage.getItem('userId') || 'null');
+      setUserId(userId);
+      
+      fetchProblema();
     }, [id, refresh]);
+
+    const fetchProblema = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/problemas/problema/${id}`);
+            const data = await response.json();
+            setProblema(data);
+
+            const comments = await fetch(`http://localhost:3000/problemas/comentario/${id}`)
+            const data2 = await comments.json();
+            setCommentsArray(data2.Comentario);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const handleInputChange = (event: any) => {
         setComment(event.target.value);
@@ -95,6 +102,16 @@ const ReclamationDetails = () => {
             alert('É preciso adicionar um texto para comentar')
         }
     }
+    
+    async function finalizar(id: string) {
+        try {
+            await finalizarProblema(id);
+
+            navigate('/my-reclamation');
+        } catch (error) {
+          console.error(error);
+        }
+    }
 
     return (
         <div>
@@ -110,14 +127,21 @@ const ReclamationDetails = () => {
                                 <div className="card-body">
                                     <h3>Titulo: {problema.titulo}</h3>
                                     <h4>Descrição: {problema.descricao}</h4>
-                                    <div className='position-absolute top-0 end-0 m-2'>
-                                        <h2 className="card-text">Votação: {problema.votacao}</h2>
-                                        <button className='btn btn-primary position-absolute  end-0 m-2' onClick={() => vota()}>
+                                    <h4 className="card-text">Votação: {problema.votacao}</h4>
+
+                                    <div className='position-absolute bottom-0 end-0 m-3'>
+                                        <button className='btn btn-primary' onClick={() => vota()}>
                                             <FaThumbsUp />
                                         </button>
                                     </div>
 
                                     <p className="card-text"><small className="text-muted"><strong>Endereço: </strong>{problema.endereco}</small></p>
+
+                                    {userId == problema.usuarioId &&
+                                      <button className="btn btn-secondary" onClick={() => finalizar(problema.id)}>
+                                        FECHAR RECLAMAÇÃO
+                                      </button>
+                                    }
                                 </div>
                             </div>
                         </div>
