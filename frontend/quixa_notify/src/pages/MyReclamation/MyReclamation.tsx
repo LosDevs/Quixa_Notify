@@ -24,8 +24,6 @@ const MyReclamation = () => {
       const idUser = JSON.parse(localStorage.getItem('userId') || '');
       const isCompany = JSON.parse(localStorage.getItem('isCompany') || '');
 
-      console.log(idUser, isCompany);
-
       if(!idUser || isCompany) {
         navigate('/login');
       }
@@ -44,7 +42,7 @@ const MyReclamation = () => {
             }
           });
         } catch (error) {
-          console.log(error)
+          console.error(error);
         } 
       } 
 

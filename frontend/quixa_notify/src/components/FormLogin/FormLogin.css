@@ -11,9 +11,7 @@
 }
 
 .form-page .form-container {
-  width: 50%;
-  min-width: 600px;
-  max-width: 800px;
+  width: 600px;
   padding: 32px 64px;
   border: 1px solid #100434;
 

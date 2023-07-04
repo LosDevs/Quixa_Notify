@@ -34,7 +34,7 @@ const ReclamationOffcanvas = ({ location }: ReclamationOffCanvasProps) => {
                 .then(res => res.json())
                 .then(data => setRep(data))
         } catch (error) {
-            console.log(error)
+            console.error(error);
         }
     }
 

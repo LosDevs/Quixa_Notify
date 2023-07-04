@@ -76,7 +76,7 @@ const Map = ({locationClick} : MapProps) => {
           setPositions(positionsData);
         })
       } catch (error) {
-        console.log(error)
+        console.error(error);
       } 
     } 
 

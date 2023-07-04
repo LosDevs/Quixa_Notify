@@ -33,7 +33,7 @@ export const login = async ({ password, email }: LoginProps) => {
       password: password,
       email: email
     });
-    console.log(response.data)
+
     const isCompany = response.data.data.company
     const idUser = response.data.data.sub;
     const token = response.data.access_token;
