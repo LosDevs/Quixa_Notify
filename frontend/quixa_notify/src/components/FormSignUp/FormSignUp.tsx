@@ -80,132 +80,122 @@ const FormSignUp = () => {
   }
 
   return (
-    <div className="background">
-      <div className="row h-100 principal">
-        <div className="col-md-4 d-flex logo-container">
-          <div>
-            <img className="logo" src="logo1.png" alt="" width={300} />
-            <p className="info">
-              Faça uma reclamação e acompanhe os problemas que estão acontecendo
-              ao seu redor.
-            </p>
+    <div className="form-page">
+      <form className="form-container">
+        <h4 className="mb-4 custom-text-color texto text-center">Faça seu cadastro</h4>
+        <p className="info custom-text-color texto text-center">
+          Faça uma reclamação e acompanhe os problemas que estão acontecendo
+          ao seu redor
+        </p>
+
+        <div className="mb-1 form-group">
+          <label
+            htmlFor="inputName"
+            className="form-label custom-text-color"
+          >
+            Nome completo
+          </label>
+          <input
+            ref={inputNameRef}
+            type="text"
+            className="form-control form-control-sm"
+            id="inputName"
+            placeholder="Seu nome completo"
+            onChange={(event) => {
+              setName(event.target.value);
+            }}
+          />
+          <span ref={invalidName} className="error-message d-none">
+            Nome inválido!
+          </span>
+        </div>
+
+        <div className="mb-1 for form-group">
+          <label
+            htmlFor="inputEmail"
+            className="form-label custom-text-color"
+          >
+            Email
+          </label>
+          <input
+            ref={inputEmailRef}
+            type="email"
+            className="form-control form-control-sm"
+            id="inputEmail"
+            placeholder="name@exemplo.com"
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
+          />
+          <span ref={invalidEmail} className="error-message d-none">
+            Email inválido!
+          </span>
+        </div>
+
+        <div className="mb-3 form-group">
+          <label
+            htmlFor="inputNewPassword"
+            className="form-label custom-text-color"
+          >
+            Senha
+          </label>
+          <input
+            ref={inputNewPasswordRef}
+            type="password"
+            id="inputNewPassword"
+            className="form-control form-control-sm"
+            aria-labelledby="passwordHelpBlock"
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
+          />
+          <span ref={invalidPassword} className="error-message d-none">
+            Senha inválida!
+          </span>
+          <div
+            id="passwordHelpBlock"
+            className="form-text custom-text-color"
+          >
+            Sua senha tem que ter de 8 a 20 caracteres, letras maiúsculas,
+            minúsculas, números e algum caractere especial.
           </div>
         </div>
-        <div className="cadastro col-md-6 d-flex flex-column align-items-center  login-form-container">
-          <form className="formulario d-flex flex-column">
-            <h4 className="mb-4 for-1 custom-text-color texto text-center mt-4">
-              Faça seu cadastro
-            </h4>
-            <div className="mb-1 form-group">
-              <label
-                htmlFor="inputName"
-                className="form-label custom-text-color"
-              >
-                Nome completo
-              </label>
-              <input
-                ref={inputNameRef}
-                type="text"
-                className="form-control form-control-sm"
-                id="inputName"
-                placeholder="Seu nome completo"
-                onChange={(event) => {
-                  setName(event.target.value);
-                }}
-              />
-              <span ref={invalidName} className="error-message d-none">
-                Nome inválido!
-              </span>
-            </div>
 
-            <div className="mb-1 for form-group">
-              <label
-                htmlFor="inputEmail"
-                className="form-label custom-text-color"
-              >
-                Email
-              </label>
-              <input
-                ref={inputEmailRef}
-                type="email"
-                className="form-control form-control-sm"
-                id="inputEmail"
-                placeholder="name@exemplo.com"
-                onChange={(event) => {
-                  setEmail(event.target.value);
-                }}
-              />
-              <span ref={invalidEmail} className="error-message d-none">
-                Email inválido!
-              </span>
-            </div>
-
-            <div className="mb-3 form-group">
-              <label
-                htmlFor="inputNewPassword"
-                className="form-label custom-text-color"
-              >
-                Senha
-              </label>
-              <input
-                ref={inputNewPasswordRef}
-                type="password"
-                id="inputNewPassword"
-                className="form-control form-control-sm"
-                aria-labelledby="passwordHelpBlock"
-                onChange={(event) => {
-                  setPassword(event.target.value);
-                }}
-              />
-              <span ref={invalidPassword} className="error-message d-none">
-                Senha inválida!
-              </span>
-              <div
-                id="passwordHelpBlock"
-                className="form-text custom-text-color"
-              >
-                Sua senha tem que ter de 8 a 20 caracteres, letras maiúsculas,
-                minúsculas, números e algum caractere especial.
-              </div>
-            </div>
-
-            <div className="mb-1 for form-group">
-              <label
-                htmlFor="inputConfirmPassword"
-                className="form-label custom-text-color"
-              >
-                Confirme a senha
-              </label>
-              <input
-                ref={inputConfirmPasswordRef}
-                type="password"
-                id="inputConfirmPassword"
-                className="form-control form-control-sm"
-                aria-labelledby="passwordHelpBlock"
-                onChange={(event) => {
-                  setConfirmPassword(event.target.value);
-                }}
-              />
-              <span ref={invalidPasswordConfirm} className="error-message d-none">
-                Senha inválida!
-              </span>
-              <div
-                id="passwordHelpBlock"
-                className="form-text custom-text-color"
-              ></div>
-            </div>
-
-            <div className="form-group bt-1 mt-3">
-              <button
-                className="btn btn-primary mb-3 w-100"
-                onClick={buttonSingUp}
-              >
-                Cadastrar
-              </button>
-            </div>
-          </form>
+        <div className="mb-1 for form-group">
+          <label
+            htmlFor="inputConfirmPassword"
+            className="form-label custom-text-color"
+          >
+            Confirme a senha
+          </label>
+          <input
+            ref={inputConfirmPasswordRef}
+            type="password"
+            id="inputConfirmPassword"
+            className="form-control form-control-sm"
+            aria-labelledby="passwordHelpBlock"
+            onChange={(event) => {
+              setConfirmPassword(event.target.value);
+            }}
+          />
+          <span ref={invalidPasswordConfirm} className="error-message d-none">
+            Senha inválida!
+          </span>
+          <div
+            id="passwordHelpBlock"
+            className="form-text custom-text-color"
+          ></div>
         </div>
-      </div>
+
+        <div className="form-group bt-1 mt-3 button-group">
+          <button
+            className="primary-button"
+            onClick={buttonSingUp}
+          >
+            Cadastrar
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

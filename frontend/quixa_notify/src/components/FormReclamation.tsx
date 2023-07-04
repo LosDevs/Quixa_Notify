@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
-import Map from "./Map/Map";
+import { useEffect, useState, useContext } from "react";
 import { ICoordinates } from "../types/ICoordinates";
 import { IProblema } from "../types/IProblema";
 import { create } from "../services/ReclamationService";
@@ -22,7 +21,8 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
     image: [],
     imagePreview: null,
   });
-  const [image, setImage] = useState('')
+  const [image, setImage] = useState('');
+
   const { isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
@@ -53,26 +53,28 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
 
   const handleImageChange = (event: any) => {
     setImage(event.target.files[0])
-  };  
-  
+  };
 
   const handleSubmit = async (event: any) => {
+    event.preventDefault();
+
     if(!isAuthenticated) {
       alert("É preciso estar logado para comentar");
     }
-    event.preventDefault();
-    const formData = new FormData()
-    formData.append('imagem', image)
-    formData.append('titulo', formulario.titulo)
-    formData.append('longitude', formulario.longitude)
-    formData.append('latitude', formulario.latitude)
-    formData.append('endereco', formulario.endereco)
-    formData.append('tipo_problema', formulario.tipo_problema)
-    formData.append('descricao', formulario.descricao)
-    formData.append('nivel_gravidade', formulario.nivel_gravidade.toString())
-    formData.append('votacao', formulario.votacao.toString())
-    console.log(formData)
-    await create(formData)
+
+    const formData = new FormData();
+
+    formData.append('imagem', image);
+    formData.append('titulo', formulario.titulo);
+    formData.append('longitude', formulario.longitude);
+    formData.append('latitude', formulario.latitude);
+    formData.append('endereco', formulario.endereco);
+    formData.append('tipo_problema', formulario.tipo_problema);
+    formData.append('descricao', formulario.descricao);
+    formData.append('nivel_gravidade', formulario.nivel_gravidade.toString());
+    formData.append('votacao', formulario.votacao.toString());
+
+    await create(formData);
 
     const newForm = {
       titulo: "",
@@ -193,7 +195,7 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
             placeholder="Nível de Gravidade"
           />
         </div>
-        <div className="form-group my-3">
+        {/* <div className="form-group my-3">
           <label htmlFor="inputVotacao" className="form-label">
             Votação
           </label>
@@ -206,7 +208,7 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
             onChange={handleChange}
             placeholder="Votação"
           />
-        </div>
+        </div> */}
         <div className="form-group my-3">
           <label htmlFor="inputImage" className="form-label">
             Imagem

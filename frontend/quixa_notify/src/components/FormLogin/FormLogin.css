@@ -1,69 +1,57 @@
-.row {  
-  margin: 0;
-  padding: 0;
-}
-
-
-
-body {
-  margin: 0;
-  padding: 0;
-  background-color:white;
-}
-
-.login {
-  background-color: rgba(36, 50, 102, 1);
-  height: 490px;
-  border-radius: 10px 0px 0px 10px;
-}
-
-
-.logo-container {
-  margin-left: 100px;
-  margin-bottom: 50px;
-}
-
-.custom-text-color {
-  color: white;
-}
-
-.formulario {
-  width: 70%;
-  justify-content: space-between;
-}
-
-.for {
-  padding-bottom: 20px;
-}
-
-.texto {
-  font-size: 40px;
-}
-
-.principal {
+.form-page {
+  width: 100%;
+  height: 84vh;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 }
 
-.login-form-container {
-  margin-left: 100px;
+.form-page .custom-text-color {
+  color: #100434;
 }
 
-.info { 
-  color: rgb(19, 66, 236);
-  text-shadow: 0 0 0 rgba(19, 66, 236, 0.8),
-          0 0 0 rgba(19, 66, 236, 0.8);
+.form-page .form-container {
+  width: 50%;
+  min-width: 600px;
+  max-width: 800px;
+  padding: 32px 64px;
+  border: 1px solid #100434;
+
+  /* glassmorphism */
+  box-shadow: 8px 8px 4px 0 rgba( 31, 38, 135, 0.3 );
+  backdrop-filter: blur( 2px );
+  -webkit-backdrop-filter: blur( 2px );
+  border-radius: 12px;
 }
 
-.invalid-field {
+.form-page .form-container .form-group {
+  margin-top: 12px;
+}
+
+.form-page .form-container .form-group input {
+  border: 1px solid #100434;
+}
+
+.form-page .form-container .form-group.button-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-page .form-container .form-group.button-group .primary-button {
+  background-color: #100434;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 32px;
+  color: #fafafa;
+  text-transform: uppercase;
+}
+
+.form-page .form-container .invalid-field {
   border: 2px solid red;
 }
 
-.logo {
-  height: 300px;
-}
-
-.error-message {
+.form-page .form-container .error-message {
   color: red;
   font-size: 12px;
   text-transform: lowercase;
