@@ -10,15 +10,15 @@ interface FormRaclamationProps {
 
 export enum TipoProblema {
   BURACOS_VIAS = "Buracos nas vias",
-  ILUMINACAO_PUBLICA = "Iluminação pública defeituosa",
+  ILUMINACAO_PUBLICA = "Iluminação pública",
   VANDALISMO_PICHACOES = "Vandalismo e pichações",
   FALTA_COLETA_LIXO = "Falta de coleta de lixo",
-  FALTA_MANUTENCAO_PARQUES = "Falta de manutenção em parques e áreas verdes",
-  PROBLEMAS_TRANSPORTE_PUBLICO = "Problemas no transporte público",
-  INFILTRACOES_VAZAMENTOS_AGUA = "Infiltrações e vazamentos de água",
+  FALTA_MANUTENCAO_PARQUES = "Falta de manutenção",
+  PROBLEMAS_TRANSPORTE_PUBLICO = "transporte público",
+  INFILTRACOES_VAZAMENTOS_AGUA = "Infiltrações e vazamentos",
   FALTA_ACESSIBILIDADE = "Falta de acessibilidade",
   POLUICAO_SONORA = "Poluição sonora",
-  FALTA_SIGNALIZACAO_ADEQUADA = "Falta de sinalização adequada",
+  FALTA_SIGNALIZACAO_ADEQUADA = "Falta de sinalização",
 }
 
 const FormRaclamation = ({location}: FormRaclamationProps) => {
@@ -99,7 +99,7 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
 
     await create(formData)
     .then(() => {
-      window.location.reload();
+      // window.location.reload();
     })
     .catch(() => {
       alert("Não foi possível adicionar essa reclamação!");

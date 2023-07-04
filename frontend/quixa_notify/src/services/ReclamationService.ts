@@ -16,7 +16,7 @@ export const create = async (form: any) => {
   const token = api.defaults.headers.common['Authorization'];
 
   try {
-    api.post('/problemas',form, {headers: {'Authorization': `Bearer ${token}`}});
+    api.post('/problemas',form);
   } catch (error) {
     console.error(error);      
   }
@@ -45,12 +45,7 @@ export const addCommentInReclamation = async (commentText: string, idProblema: s
       idproblema: idProblema
     }
 
-    const headers = {
-      Authorization: `Bearer ${token}`, 
-      'Content-Type': 'application/json' 
-    };
-
-    const data = await api.post('http://localhost:3000/problemas/comentario', content, { headers });
+    const data = await api.post('http://localhost:3000/problemas/comentario', content);
 
     const success = data.status === 201 ? true : false;
     

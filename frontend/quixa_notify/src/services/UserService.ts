@@ -42,8 +42,6 @@ export const login = async ({ password, email }: LoginProps) => {
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("isCompany", JSON.stringify(isCompany));
 
-    setAuthToken(token);
-
     return true;
   } catch (error) {
     return false;
@@ -87,17 +85,3 @@ export const deletarProblema = async (id: string) => {
     return false;
   }
 }
-
-const setAuthToken = (token: String) => {
-  if (token) {
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  } else {
-    delete api.defaults.headers.common['Authorization'];
-  }
-};
-
-const removeAuthToken = () => {
-  delete api.defaults.headers.common['Authorization'];
-};
-
-export default { removeAuthToken, setAuthToken };
