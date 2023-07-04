@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 import './Navbar.css';
@@ -7,6 +7,7 @@ import './Navbar.css';
 function NavbarAuth() {
   const [isCompany, setIsCompany] = useState(false);
   
+  const location = useLocation();
   const navigate = useNavigate();
   
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -14,12 +15,12 @@ function NavbarAuth() {
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token') || 'null');
     if (token) setIsAuthenticated(true);
-  }, [localStorage]);
+  }, [location]);
 
   useEffect(() => {
     const company = JSON.parse(localStorage.getItem('isCompany') || 'null');
     if (company) setIsCompany(JSON.parse(company));
-  });
+  }, [location]);
 
   const handleLogout = () => {
     localStorage.removeItem('userId');
