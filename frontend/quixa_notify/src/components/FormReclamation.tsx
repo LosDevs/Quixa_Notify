@@ -3,6 +3,7 @@ import { ICoordinates } from "../types/ICoordinates";
 import { IProblema } from "../types/IProblema";
 import { create } from "../services/ReclamationService";
 import { AuthContext } from "../context/AuthContext";
+import { ProblemaContext } from "../context/ProblemaContext";
 
 interface FormRaclamationProps {
   location: ICoordinates 
@@ -38,6 +39,7 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
   const [isCompany, setIsCompany] = useState(false);
   const [image, setImage] = useState("");
 
+  const { changeProblemaCadastrado } = useContext(ProblemaContext);
   const { isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
@@ -99,7 +101,7 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
 
     await create(formData)
     .then(() => {
-      // window.location.reload();
+      changeProblemaCadastrado();
     })
     .catch(() => {
       alert("Não foi possível adicionar essa reclamação!");

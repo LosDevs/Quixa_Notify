@@ -5,7 +5,7 @@ import {
   Marker,
   Popup,
 } from "react-leaflet";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ICoordinates } from "../../types/ICoordinates";
 import { Link } from "react-router-dom";
 import { TipoProblema } from "../FormReclamation";
@@ -14,6 +14,7 @@ import L from "leaflet";
 
 import "leaflet/dist/leaflet.css";
 import "./Map.css";
+import { ProblemaContext } from "../../context/ProblemaContext";
 
 interface MapProps {
   locationClick: React.Dispatch<React.SetStateAction<ICoordinates>>
@@ -30,6 +31,7 @@ type PositionProps = {
 
 const Map = ({locationClick} : MapProps) => {
   const [positions, setPositions] = useState<PositionProps[]>([]);
+  const { problemaCadastrado } = useContext(ProblemaContext);
 
   const redIcon = new L.Icon({
     iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
@@ -68,29 +70,29 @@ const Map = ({locationClick} : MapProps) => {
   });
 
   useEffect(() => {
-    const dataFetch = async () => {
-      try {
-        await fetch('http://localhost:3000/problemas')
-        .then(res => res.json())
-        .then(data => {
-          const positionsData: PositionProps[] = data.map((e: any) => ({
-            id: e.id,
-            tipo: e.tipo_problema,
-            pos: {
-              lat: parseFloat(e.latitude),
-              lon: parseFloat(e.longitude)
-            }
-          }));
-
-          setPositions(positionsData);
-        })
-      } catch (error) {
-        console.error(error);
-      } 
-    } 
-
     dataFetch();
-  }, []);
+  }, [problemaCadastrado]);
+
+  const dataFetch = async () => {
+    try {
+      await fetch('http://localhost:3000/problemas')
+      .then(res => res.json())
+      .then(data => {
+        const positionsData: PositionProps[] = data.map((e: any) => ({
+          id: e.id,
+          tipo: e.tipo_problema,
+          pos: {
+            lat: parseFloat(e.latitude),
+            lon: parseFloat(e.longitude)
+          }
+        }));
+
+        setPositions(positionsData);
+      })
+    } catch (error) {
+      console.error(error);
+    } 
+  }
 
   const getIconType = (tipo: TipoProblema) => {
     if (
@@ -127,29 +129,33 @@ const Map = ({locationClick} : MapProps) => {
   };
 
   return (
-    <MapContainer
-      center={[-4.97813, -39.0188]}
-      zoom={13}
-      scrollWheelZoom={false}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      
-      {positions.map((position: any, index) => (
-        <Marker key={index} position={position.pos} icon={getIconType(position.tipo)}>
-          <Popup>
-            <strong>Tipo: </strong>
-            <span>{position.tipo}</span> 
-            <br /> 
-            <Link to={`/reclamation/${position.id}`}>Ver detalhes</Link>
-          </Popup>
-        </Marker>
-      ))};
+    <>
+      <MapContainer
+        center={[-4.97813, -39.0188]}
+        zoom={13}
+        scrollWheelZoom={false}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        
+        {positions.map((position: any, index) => (
+          <Marker key={index} position={position.pos} icon={getIconType(position.tipo)}>
+            <Popup>
+              <strong>Tipo: </strong>
+              <span>{position.tipo}</span> 
+              <br /> 
+              <Link to={`/reclamation/${position.id}`}>Ver detalhes</Link>
+            </Popup>
+          </Marker>
+        ))};
 
-      <MapClickHandler />
-    </MapContainer>
+        <MapClickHandler />
+      </MapContainer>
+
+      <button className="btn btn-primary mt-3" onClick={dataFetch}>Atualizar</button>
+    </>
   );
 };
 
