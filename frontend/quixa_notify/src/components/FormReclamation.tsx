@@ -8,6 +8,19 @@ interface FormRaclamationProps {
   location: ICoordinates 
 }
 
+export enum TipoProblema {
+  BURACOS_VIAS = "Buracos nas vias",
+  ILUMINACAO_PUBLICA = "Iluminação pública defeituosa",
+  VANDALISMO_PICHACOES = "Vandalismo e pichações",
+  FALTA_COLETA_LIXO = "Falta de coleta de lixo",
+  FALTA_MANUTENCAO_PARQUES = "Falta de manutenção em parques e áreas verdes",
+  PROBLEMAS_TRANSPORTE_PUBLICO = "Problemas no transporte público",
+  INFILTRACOES_VAZAMENTOS_AGUA = "Infiltrações e vazamentos de água",
+  FALTA_ACESSIBILIDADE = "Falta de acessibilidade",
+  POLUICAO_SONORA = "Poluição sonora",
+  FALTA_SIGNALIZACAO_ADEQUADA = "Falta de sinalização adequada",
+}
+
 const FormRaclamation = ({location}: FormRaclamationProps) => {
   const [formulario, setFormulario] = useState<IProblema>({
     titulo: "",
@@ -17,13 +30,13 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
     tipo_problema: "",
     nivel_gravidade: 0,
     votacao: 0,
-    descricao : "",
+    descricao: "",
     image: [],
     imagePreview: null,
   });
 
   const [isCompany, setIsCompany] = useState(false);
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState("");
 
   const { isAuthenticated } = useContext(AuthContext);
 
@@ -32,11 +45,11 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
       ...formulario,
       longitude: location.lng,
       latitude: location.lat,
-    })
+    });
   }, [location]);
 
   useEffect(() => {
-    const isCompany = JSON.parse(localStorage.getItem('isCompany') || 'false');
+    const isCompany = JSON.parse(localStorage.getItem("isCompany") || "false");
     setIsCompany(isCompany);
   }, []);
 
@@ -59,29 +72,38 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
   };
 
   const handleImageChange = (event: any) => {
-    setImage(event.target.files[0])
+    setImage(event.target.files[0]);
   };
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
-    if(!isAuthenticated) {
-      alert("É preciso estar logado para comentar");
+    if (!isAuthenticated) {
+      alert("É preciso estar logado para fazer uma reclamação");
     }
 
     const formData = new FormData();
 
-    formData.append('imagem', image);
-    formData.append('titulo', formulario.titulo);
-    formData.append('longitude', formulario.longitude);
-    formData.append('latitude', formulario.latitude);
-    formData.append('endereco', formulario.endereco);
-    formData.append('tipo_problema', formulario.tipo_problema);
-    formData.append('descricao', formulario.descricao);
-    formData.append('nivel_gravidade', formulario.nivel_gravidade.toString());
-    formData.append('votacao', formulario.votacao.toString());
+    formData.append("imagem", image);
+    formData.append("titulo", formulario.titulo);
+    formData.append("longitude", formulario.longitude);
+    formData.append("latitude", formulario.latitude);
+    formData.append("endereco", formulario.endereco);
+    formData.append("tipo_problema", formulario.tipo_problema);
+    formData.append("descricao", formulario.descricao);
+    formData.append(
+      "nivel_gravidade",
+      formulario.nivel_gravidade.toString()
+    );
+    formData.append("votacao", formulario.votacao.toString());
 
-    await create(formData);
+    await create(formData)
+    .then(() => {
+      window.location.reload();
+    })
+    .catch(() => {
+      alert("Não foi possível adicionar essa reclamação!");
+    });
 
     const newForm = {
       titulo: "",
@@ -91,10 +113,10 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
       tipo_problema: "",
       nivel_gravidade: 0,
       votacao: 0,
-      descricao : "",
+      descricao: "",
       image: [],
       imagePreview: null,
-    }
+    };
 
     setFormulario(newForm);
   };
@@ -102,6 +124,10 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
   return (
     <>
       <form className="m-3 p-3" onSubmit={handleSubmit}>
+        {!isAuthenticated &&
+          <span style={{ color: 'red' }}>É preciso estar logado para fazer uma reclamação</span>
+        }
+
         <div className="form-group my-3">
           <label htmlFor="inputTitleReclamation" className="form-label">
             Título
@@ -172,20 +198,27 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
             placeholder="Longitude"
           />
         </div>
+        
         <div className="form-group my-3">
           <label htmlFor="inputTipoProblema" className="form-label">
             Tipo de Problema
           </label>
-          <input
-            type="text"
+          <select
             className="form-control"
             id="inputTipoProblema"
             name="tipo_problema"
             value={formulario.tipo_problema}
             onChange={handleChange}
-            placeholder="Tipo de Problema"
-          />
+          >
+            <option value="">Selecione o tipo de problema</option>
+            {Object.values(TipoProblema).map((opcao) => (
+              <option key={opcao} value={opcao}>
+                {opcao}
+              </option>
+            ))}
+          </select>
         </div>
+
         <div className="form-group my-3">
           <label htmlFor="inputNivelGravidade" className="form-label">
             Nível de Gravidade
@@ -230,7 +263,7 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
           />
         </div>
         <div className="form-group my-3">
-          <button disabled={isCompany} type="submit" className="btn btn-primary">
+          <button disabled={isCompany || !isAuthenticated} type="submit" className="btn btn-primary">
             Enviar
           </button>
         </div>

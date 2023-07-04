@@ -5,36 +5,18 @@ import {
   Marker,
   Popup,
 } from "react-leaflet";
-
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import "./Map.css";
-import useGeoLocation from "./useGeoLocation";
 import { useState, useEffect } from "react";
 import { ICoordinates } from "../../types/ICoordinates";
 import { Link } from "react-router-dom";
+import { TipoProblema } from "../FormReclamation";
 
-const markerIcon = new L.Icon({
-  iconUrl: "../../../node_modules/bootstrap-icons/icons/geo-alt-fill.svg",
-  iconRetinaUrl: "../../../node_modules/bootstrap-icons/icons/geo-alt-fill.svg",
-  iconSize: [35, 45],
-});
+import L from "leaflet";
+
+import "leaflet/dist/leaflet.css";
+import "./Map.css";
 
 interface MapProps {
   locationClick: React.Dispatch<React.SetStateAction<ICoordinates>>
-}
-
-type Reclamationprops =  {
-  id : string;
-  titulo: string;
-  longitude: string;
-  latitude: string;
-  endereco: string;
-  tipo_problema: string;
-  nivel_gavidade: number;
-  descricao : string;
-  votacao: number;
-  imagem: string;
 }
 
 type PositionProps = {
@@ -47,14 +29,43 @@ type PositionProps = {
 }
 
 const Map = ({locationClick} : MapProps) => {
-  const [selectedLocation, setSelectedLocation] = useState({
-    lat: 0,
-    lng: 0,
-  });
-  const [reclamations , setReclamations] = useState<Reclamationprops[]>([]);
   const [positions, setPositions] = useState<PositionProps[]>([]);
 
-  const location = useGeoLocation();
+  const redIcon = new L.Icon({
+    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
+
+  const orangeIcon = new L.Icon({
+    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
+
+  const yellowIcon = new L.Icon({
+    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
+
+  const blueIcon = new L.Icon({
+    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
 
   useEffect(() => {
     const dataFetch = async () => {
@@ -62,8 +73,6 @@ const Map = ({locationClick} : MapProps) => {
         await fetch('http://localhost:3000/problemas')
         .then(res => res.json())
         .then(data => {
-          setReclamations(data);
-
           const positionsData: PositionProps[] = data.map((e: any) => ({
             id: e.id,
             tipo: e.tipo_problema,
@@ -83,16 +92,32 @@ const Map = ({locationClick} : MapProps) => {
     dataFetch();
   }, []);
 
-  const handleMapClick = (event: any) => {
-    const { lat, lng } = event.latlng;
-    setSelectedLocation({ lat, lng });
-  };
+  const getIconType = (tipo: TipoProblema) => {
+    if (
+      tipo === TipoProblema.BURACOS_VIAS ||
+      tipo === TipoProblema.ILUMINACAO_PUBLICA ||
+      tipo === TipoProblema.VANDALISMO_PICHACOES
+    ) {
+      return redIcon;
+    } else if (
+      tipo === TipoProblema.FALTA_COLETA_LIXO ||
+      tipo === TipoProblema.FALTA_MANUTENCAO_PARQUES
+    ) {
+      return orangeIcon;
+    } else if (
+      tipo === TipoProblema.PROBLEMAS_TRANSPORTE_PUBLICO ||
+      tipo === TipoProblema.INFILTRACOES_VAZAMENTOS_AGUA
+    ) {
+      return yellowIcon;
+    } else {
+      return blueIcon;
+    }
+  }
 
   const MapClickHandler = () => {
     useMapEvents({
       click: (event) => {
         const { lat, lng } = event.latlng;
-        setSelectedLocation({ lat, lng });
         const latitude = lat.toString();
         const longitude = lng.toString();
         locationClick({lat: latitude, lng: longitude})
@@ -113,7 +138,7 @@ const Map = ({locationClick} : MapProps) => {
       />
       
       {positions.map((position: any, index) => (
-        <Marker key={index} position={position.pos}>
+        <Marker key={index} position={position.pos} icon={getIconType(position.tipo)}>
           <Popup>
             <strong>Tipo: </strong>
             <span>{position.tipo}</span> 
@@ -127,4 +152,5 @@ const Map = ({locationClick} : MapProps) => {
     </MapContainer>
   );
 };
+
 export default Map;

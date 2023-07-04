@@ -57,6 +57,7 @@ const FormLogin = () => {
       });
     } catch (error) {
       console.error(error);
+      alert("Email ou senha incorretos");
     }
   }
 

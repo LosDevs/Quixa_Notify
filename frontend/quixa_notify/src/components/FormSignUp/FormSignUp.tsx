@@ -76,7 +76,9 @@ const FormSignUp = () => {
           navigate("/login")
         }
       })
-    } catch (error) {}
+    } catch (error) {
+      alert("Email ou senha incorretos");
+    }
   }
 
   return (
