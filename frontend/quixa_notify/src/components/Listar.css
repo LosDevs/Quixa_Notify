@@ -1,0 +1,13 @@
+.card-container {
+  padding: 0 24px;
+}
+
+.card-container .ver-mais {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+}
+
+.distinguish-image {
+  max-height: 200px !important;
+}

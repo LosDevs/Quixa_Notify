@@ -119,7 +119,8 @@ export class ProblemaService {
             const {
                 id,
                 name,
-            } = usuario
+            } = usuario;
+
             const comentarios = await this.prisma.comentario.create({
                 data : {
                     problemaId : comentario.idproblema,
@@ -128,6 +129,7 @@ export class ProblemaService {
                     comentario : String(comentario.comentario)
                 }
             })
+
             return { message: 'Problema criado com sucesso' }
         } catch (error) {
             return { message: 'aconteceu algum problema' + error }

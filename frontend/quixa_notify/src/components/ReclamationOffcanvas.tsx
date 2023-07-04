@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import FormRaclamation from './FormReclamation';
 
 interface ReclamationOffCanvasProps {
-    location: ICoordinates,
+  location: ICoordinates,
 }
 
 const ReclamationOffcanvas = ({ location }: ReclamationOffCanvasProps) => {
@@ -52,7 +52,6 @@ const ReclamationOffcanvas = ({ location }: ReclamationOffCanvasProps) => {
     function navigateForDetailsReclamation(id: any) {
         navigate(`/reclamation/${id}`)
     }
-
 
     return (
         <div style={{ display: 'flex', gap: '10px' }}>

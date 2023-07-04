@@ -38,7 +38,7 @@ export const addCommentInReclamation = async (commentText: string, idProblema: s
   }
 
   try {
-    const token = localStorage.getItem('token') || '';
+    const token = JSON.parse(localStorage.getItem('token') || '');
 
     const content = {
       comentario: commentText,
