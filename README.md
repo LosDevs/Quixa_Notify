@@ -1,6 +1,6 @@
 **Quixa_Notify**
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png" width="30" /> <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" width = "30"/> <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Trello-logo-blue.svg" width = "50"/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png" width="30" /> <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" width = "20"/> <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Trello-logo-blue.svg" width = "100"/>
  
  [Notion](https://www.notion.so/Projeto-Integrado-em-Engenharia-de-Software-II-a1b6e2ec926d44e8b7cb5fe0e5cb7c97)
 >Documentação completa
