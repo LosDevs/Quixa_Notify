@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { create } from "../../services/UserService";
 
 import "./FormSignUp.css";
@@ -80,6 +80,13 @@ const FormSignUp = () => {
       alert("Email ou senha incorretos");
     }
   }
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token') || 'null');
+    if (token) {
+      navigate('/');
+    }
+  }, [localStorage]);
 
   return (
     <div className="form-page">

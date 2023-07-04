@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from "react";
 import { ICoordinates } from "../types/ICoordinates";
 import { IProblema } from "../types/IProblema";
 import { create } from "../services/ReclamationService";
-import { AuthContext } from "../context/AuthContext";
 import { ProblemaContext } from "../context/ProblemaContext";
 
 interface FormRaclamationProps {
@@ -40,7 +39,18 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
   const [image, setImage] = useState("");
 
   const { changeProblemaCadastrado } = useContext(ProblemaContext);
-  const { isAuthenticated } = useContext(AuthContext);
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token') || 'null');
+    if (token) setIsAuthenticated(true);
+  }, [localStorage]);
+
+  useEffect(() => {
+    const company = JSON.parse(localStorage.getItem('isCompany') || 'null');
+    if (company) setIsCompany(JSON.parse(company));
+  });
 
   useEffect(() => {
     setFormulario({

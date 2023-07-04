@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaThumbsUp } from 'react-icons/fa';
 import { deletarProblema, finalizarProblema, votar } from '../services/UserService';
-import { AuthContext } from '../context/AuthContext';
 import { addCommentInReclamation } from '../services/ReclamationService';
 
 import './ReclamationDetails.css';
@@ -39,7 +38,13 @@ const ReclamationDetails = () => {
     const [commentsArray, setCommentsArray] = useState<propsComement[] | []>([]);
     const [comment, setComment] = useState('');
     const [refresh, setRefresh] = useState(false);
-    const { isAuthenticated } = useContext(AuthContext);
+
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+      const token = JSON.parse(localStorage.getItem('token') || 'null');
+      if (token) setIsAuthenticated(true);
+    }, [localStorage]);
 
     const navigate = useNavigate();
 

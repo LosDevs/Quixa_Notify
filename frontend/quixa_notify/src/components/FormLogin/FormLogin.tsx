@@ -1,7 +1,6 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/UserService";
-import { AuthContext } from "../../context/AuthContext";
 
 import './FormLogin.css';
 
@@ -11,7 +10,15 @@ const FormLogin = () => {
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
 
-  const { loginAC } = useContext(AuthContext);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token') || 'null');
+    if (token) {
+      setIsAuthenticated(true);
+      navigate('/');
+    }
+  }, [localStorage]);
 
   const navigate = useNavigate();
 
@@ -43,7 +50,7 @@ const FormLogin = () => {
     try {
       await login({ email: email, password: password }).then((res) => {
         if (res) {
-          loginAC();
+          setIsAuthenticated(true);
 
           const isCompanyString = localStorage.getItem('isCompany');
           const isCompany = isCompanyString ? JSON.parse(isCompanyString) : false;

@@ -1,28 +1,32 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, Link } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext'; 
 import { useNavigate } from "react-router-dom";
 
 import './Navbar.css';
 
 function NavbarAuth() {
-  const { logout, isAuthenticated } = useContext(AuthContext);
+  const [isCompany, setIsCompany] = useState(false);
+  
   const navigate = useNavigate();
-  const [isCompany, setIsCompany] = useState(false); 
+  
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const company = localStorage.getItem('isCompany')
-    if(company) {
-      setIsCompany(JSON.parse(company));
-    }
+    const token = JSON.parse(localStorage.getItem('token') || 'null');
+    if (token) setIsAuthenticated(true);
+  }, [localStorage]);
+
+  useEffect(() => {
+    const company = JSON.parse(localStorage.getItem('isCompany') || 'null');
+    if (company) setIsCompany(JSON.parse(company));
   });
 
   const handleLogout = () => {
     localStorage.removeItem('userId');
     localStorage.removeItem('token');
     localStorage.removeItem('isCompany');
+    setIsAuthenticated(false);
     setIsCompany(false);
-    logout();
     navigate('/login'); 
   }
 
