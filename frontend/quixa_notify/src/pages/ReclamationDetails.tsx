@@ -133,7 +133,10 @@ const ReclamationDetails = () => {
                     <div className="card mb-3 card-tamanho">
                         <div className="row g-0">
                             <div className="col-md-4">
-                                <img src={`http://localhost:3000/problemas/${problema.imagem}`} className="img-fluid rounded-start h-100 w-100" alt="..."></img>
+                                <figure>
+                                    <img src={`http://localhost:3000/problemas/${problema.imagem}`} className="img-fluid rounded-start h-100 w-100" alt="..."></img>
+                                    <figcaption>Imagem da rua {problema.endereco} com o problema de {problema.descricao}</figcaption>
+                                </figure>
                             </div>
 
                             <div className="col-md-6">

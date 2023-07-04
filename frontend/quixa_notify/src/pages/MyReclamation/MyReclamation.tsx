@@ -110,7 +110,10 @@ const MyReclamation = () => {
               </div>
 
               <div className='footer-card-imagem mb-3'>
-                <img src={`http://localhost:3000/problemas/${reclamation.imagem}`} alt="imagem do problema" />
+                <figure>
+                  <img src={`http://localhost:3000/problemas/${reclamation.imagem}`} alt="imagem do problema" />
+                  <figcaption>Imagem da rua {reclamation.endereco} com o problema de {reclamation.descricao}</figcaption>
+                </figure>
               </div>
 
               <div className='row g-2'>

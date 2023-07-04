@@ -42,11 +42,14 @@ const Listar = () => {
           <div className="card mb-3">
             <div className="row g-0">
               <div className="col-md-4">
-                <img
-                  src={`http://localhost:3000/problemas/${r.imagem}`}
-                  className="distinguish-image img-fluid rounded-start w-100"
-                  alt="..."
-                />
+                <figure>
+                  <img
+                    src={`http://localhost:3000/problemas/${r.imagem}`}
+                    className="distinguish-image img-fluid rounded-start w-100"
+                    alt="..."
+                  />
+                  <figcaption>Imagem da rua {r.endereco} com o problema de {r.descricao}</figcaption>
+                </figure>
               </div>
 
               <div className="col-md-8">
