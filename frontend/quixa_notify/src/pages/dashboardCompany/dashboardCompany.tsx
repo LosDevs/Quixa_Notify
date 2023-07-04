@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import "./dashboardCompany.css";
 
 type props =  {
     id : string;
@@ -15,6 +18,7 @@ type props =  {
 }
 const DashboardCompany = () => {
     const [reclamations, setReclamations] = useState<props[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProblema = async () => {
@@ -30,43 +34,41 @@ const DashboardCompany = () => {
         fetchProblema();
     }, []);
 
+    function navigateForDetailsReclamation(id: any) {
+      navigate(`/reclamation/${id}`);
+    }
+
     return (
         <div className="p-5">
             <h2>Tela da Empresa</h2>
             <section className='reclamation-container'>
                 {reclamations.map<any>((reclamation) => {
-                    return <div key={reclamation.id} className='reclamation-item'>
-                        <h3>{reclamation.titulo}</h3>
+                  return <div key={reclamation.id} className='reclamation-item'>
+                    <h3 className='mb-4'>{reclamation.titulo}</h3>
 
-                        <div className='descricao'>
-                            <h6>Descrição:</h6>
-                            <p>{reclamation.descricao}</p>
-                        </div>
-
-                        <div className='endereco'>
-                            <h6>Endereço:</h6>
-                            <p>{reclamation.endereco}</p>
-                        </div>
-                        
-                        <div className='footer-card'>
-
-                            <div className='footer-card-tipo'>
-                                <h6>Tipo do Problema:</h6>
-                                <p>{reclamation.tipo_problema}</p>
-                            </div>
-
-                            <div className='footer-card-interacoes'>
-                                <h6>Interações:</h6>
-                                <p>{reclamation.votacao}</p>
-                            </div>
-
-                            <div className='footer-card-imagem'>
-                                <img src={`http://localhost:3000/problemas/${reclamation.imagem}`} alt="imagem do problema" />
-                            </div>
-                        </div>
-
-                        <p>Status: {reclamation.finalized ? 'Fechado' : 'Em Aberto'}</p>
+                    <div className='row mb-2'>
+                      <h5 className='col'>Descrição: {reclamation.descricao}</h5>
                     </div>
+                    
+                    <div className="row mb-2">
+                      <h5 className='col'>Endereço: {reclamation.endereco}</h5>
+                    </div>
+
+                    <div className='row mb-2'>
+                      <h5 className='col-6'>Tipo do Problema: {reclamation.tipo_problema}</h5>
+                      <h5 className='col-3'>Interações: {reclamation.votacao}</h5>
+                    </div>
+
+                    <div className='footer-card-imagem mb-3'>
+                      <img src={`http://localhost:3000/problemas/${reclamation.imagem}`} alt="imagem do problema" />
+                    </div>
+
+                    <p>Status: {reclamation.finalized ? 'Fechado' : 'Em Aberto'}</p>
+                
+                    <a onClick={() => navigateForDetailsReclamation(reclamation.id)} className="btn btn-primary">
+                      VER MAIS
+                    </a>
+                  </div>
                 })}
             </section>
         </div>

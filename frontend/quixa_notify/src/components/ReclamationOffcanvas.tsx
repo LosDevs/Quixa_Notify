@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ICoordinates } from '../types/ICoordinates';
 import { votar } from "../services/UserService";
 import { useNavigate } from "react-router-dom";
@@ -38,24 +38,33 @@ const ReclamationOffcanvas = ({ location }: ReclamationOffCanvasProps) => {
         }
     }
 
-    async function vota(voto: any) {
-        try {
-            await votar(voto)
-            fetch('http://localhost:3000/problemas')
-                .then(res => res.json())
-                .then(data => setRep(data))
-        } catch (error) {
+    // async function vota(voto: any) {
+    //     try {
+    //         await votar(voto)
+    //         fetch('http://localhost:3000/problemas')
+    //             .then(res => res.json())
+    //             .then(data => setRep(data))
+    //     } catch (error) {
 
-        }
-    }
+    //     }
+    // }
 
     function navigateForDetailsReclamation(id: any) {
         navigate(`/reclamation/${id}`)
     }
 
+    const [isCompany, setIsCompany] = useState(false);
+
+    useEffect(() => {
+      const isCompany = JSON.parse(localStorage.getItem('isCompany') || 'false');
+      setIsCompany(isCompany);
+    }, []);
+
     return (
         <div style={{ display: 'flex', gap: '10px' }}>
+          { !isCompany &&
             <button className="btn btn-primary mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasReclamation" aria-controls="offcanvasReclamation">Fazer reclamação</button>
+          }
 
             <div className="offcanvas offcanvas-end" data-bs-show="true" data-bs-scroll="true" data-bs-backdrop="false" tabIndex={-1} id="offcanvasReclamation" aria-labelledby="offcanvasReclamationLabel">
                 <div className="offcanvas-header">

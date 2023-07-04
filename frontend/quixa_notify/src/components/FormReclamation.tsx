@@ -21,6 +21,8 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
     image: [],
     imagePreview: null,
   });
+
+  const [isCompany, setIsCompany] = useState(false);
   const [image, setImage] = useState('');
 
   const { isAuthenticated } = useContext(AuthContext);
@@ -32,6 +34,11 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
       latitude: location.lat,
     })
   }, [location]);
+
+  useEffect(() => {
+    const isCompany = JSON.parse(localStorage.getItem('isCompany') || 'false');
+    setIsCompany(isCompany);
+  }, []);
 
   const handleChange = (event: any) => {
     const { name, value } = event.target;
@@ -223,7 +230,7 @@ const FormRaclamation = ({location}: FormRaclamationProps) => {
           />
         </div>
         <div className="form-group my-3">
-          <button type="submit" className="btn btn-primary">
+          <button disabled={isCompany} type="submit" className="btn btn-primary">
             Enviar
           </button>
         </div>
