@@ -9,6 +9,17 @@ h2 {
     padding: 10px 0;
 }
 
+.reclamation-container .title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.reclamation-container .title button {
+  position: relative;
+}
+
 .reclamation-container .reclamation-item {
     padding: 1.5em;
     width: 70%;

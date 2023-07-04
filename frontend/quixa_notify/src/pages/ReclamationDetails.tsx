@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaThumbsUp } from 'react-icons/fa';
-import { finalizarProblema, votar } from '../services/UserService';
+import { deletarProblema, finalizarProblema, votar } from '../services/UserService';
 import { AuthContext } from '../context/AuthContext';
 import { addCommentInReclamation } from '../services/ReclamationService';
 
@@ -20,6 +20,7 @@ type props = {
     votacao: number;
     imagem: string;
     usuarioId: number;
+    finalized: boolean;
 }
 
 type propsComement = {
@@ -110,6 +111,18 @@ const ReclamationDetails = () => {
             navigate('/my-reclamation');
         } catch (error) {
           console.error(error);
+          alert("Não foi possível finalizar o problema");
+        }
+    }
+
+    async function deleteProblema(id: string) {
+        try {
+            const response = await deletarProblema(id);
+
+            if (response) navigate('/my-reclamation');
+        } catch (error) {
+          console.error(error);
+          alert("Não foi possível deletar o problema");
         }
     }
 
@@ -125,7 +138,7 @@ const ReclamationDetails = () => {
 
                             <div className="col-md-6">
                                 <div className="card-body">
-                                    <h3>Titulo: {problema.titulo}</h3>
+                                    <h3>{problema.titulo}</h3>
                                     <h4>Descrição: {problema.descricao}</h4>
                                     <h4 className="card-text">Votação: {problema.votacao}</h4>
 
@@ -133,11 +146,17 @@ const ReclamationDetails = () => {
                                         <button className='btn btn-primary' onClick={() => vota()}>
                                             <FaThumbsUp />
                                         </button>
+
+                                        {userId == problema.usuarioId &&
+                                          <button style={{ marginLeft: '10px' }} className='btn btn-primary' onClick={() => deleteProblema(problema.id)}>
+                                            <img src="../../public/trash-icon.png" alt="" width={24} />
+                                          </button>
+                                        }
                                     </div>
 
                                     <p className="card-text"><small className="text-muted"><strong>Endereço: </strong>{problema.endereco}</small></p>
 
-                                    {userId == problema.usuarioId &&
+                                    {!problema.finalized && userId == problema.usuarioId &&
                                       <button className="btn btn-secondary" onClick={() => finalizar(problema.id)}>
                                         FECHAR RECLAMAÇÃO
                                       </button>

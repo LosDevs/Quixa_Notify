@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { finalizarProblema } from "../../services/UserService";
+import { deletarProblema, finalizarProblema } from "../../services/UserService";
 
 import './MyReclamation.css';
 
@@ -62,6 +62,20 @@ const MyReclamation = () => {
             setReclamations(data);
         } catch (error) {
           console.error(error);
+          alert("Não foi possível finalizar o problema");
+        }
+    }
+
+    async function deleteProblema(id: string) {
+        try {
+            await deletarProblema(id);
+
+            const response = await fetch(`http://localhost:3000/problemas`);
+            const data = await response.json();
+            setReclamations(data);
+        } catch (error) {
+          console.error(error);
+          alert("Não foi possível deletar o problema");
         }
     }
 
@@ -75,7 +89,12 @@ const MyReclamation = () => {
         <section className='reclamation-container'>
           {reclamations.map<any>((reclamation) => {
             return <div key={reclamation.id} className='reclamation-item'>
-              <h3 className='mb-4'>{reclamation.titulo}</h3>
+              <div className="title mb-4">
+                <h3>{reclamation.titulo}</h3>
+                <button className='btn btn-primary' onClick={() => deleteProblema(reclamation.id)}>
+                  <img src="trash-icon.png" alt="" width={24} />
+                </button>
+              </div>
 
               <div className='row mb-2'>
                 <h5 className='col'>Descrição: {reclamation.descricao}</h5>
@@ -99,9 +118,11 @@ const MyReclamation = () => {
                   VER MAIS
                 </a>
 
-                <button className="btn btn-secondary" onClick={() => finalizar(reclamation.id)}>
-                  FECHAR RECLAMAÇÃO
-                </button>
+                {!reclamation.finalized &&
+                  <button className="btn btn-secondary" onClick={() => finalizar(reclamation.id)}>
+                    FECHAR RECLAMAÇÃO
+                  </button>
+                }
               </div>
             </div>
           })}

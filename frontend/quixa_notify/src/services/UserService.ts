@@ -78,6 +78,16 @@ export const finalizarProblema = async (id: string) => {
   }
 }
 
+export const deletarProblema = async (id: string) => {
+  try {
+    await api.delete(`http://localhost:3000/problemas/delete/${id}`);
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 const setAuthToken = (token: String) => {
   if (token) {
     api.defaults.headers.common['Authorization'] = `${token}`;
