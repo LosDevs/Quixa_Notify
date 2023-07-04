@@ -35,6 +35,16 @@ const Listar = () => {
     navigate(`/reclamation/${id}`);
   }
 
+  const playDescription = () => {
+    const images = document.getElementById('problemaImage');
+    const image = images as HTMLImageElement; 
+
+    if (image) {
+      const desc = new SpeechSynthesisUtterance(image.alt);
+      window.speechSynthesis.speak(desc);
+    }
+  };
+
   return (
     <div className="card-container">
       {rep.map<any>(r => (
@@ -42,13 +52,14 @@ const Listar = () => {
           <div className="card mb-3">
             <div className="row g-0">
               <div className="col-md-4">
-                <figure>
+                <figure onClick={playDescription}>
                   <img
+                    id="problemaImage"
                     src={`http://localhost:3000/problemas/${r.imagem}`}
                     className="distinguish-image img-fluid rounded-start w-100"
-                    alt="..."
+                    alt={`Imagem da rua ${r.endereco} com o problema de ${r.descricao}`}
                   />
-                  <figcaption>Imagem da rua {r.endereco} com o problema de {r.descricao}</figcaption>
+                  <figcaption>Imagem da rua: {r.endereco} com o problema de {r.descricao}</figcaption>
                 </figure>
               </div>
 

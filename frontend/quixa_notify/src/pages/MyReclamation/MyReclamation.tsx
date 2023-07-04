@@ -83,6 +83,16 @@ const MyReclamation = () => {
       navigate(`/reclamation/${id}`);
     }
 
+    const playDescription = () => {
+      const images = document.getElementById('problemaImage');
+      const image = images as HTMLImageElement; 
+  
+      if (image) {
+        const desc = new SpeechSynthesisUtterance(image.alt);
+        window.speechSynthesis.speak(desc);
+      }
+  };
+
     return (
       <div className='p-5'>
         <h2>Minhas Reclamações</h2>
@@ -110,8 +120,9 @@ const MyReclamation = () => {
               </div>
 
               <div className='footer-card-imagem mb-3'>
-                <figure>
-                  <img src={`http://localhost:3000/problemas/${reclamation.imagem}`} alt="imagem do problema" />
+                <figure onClick={playDescription}>
+                  <img id='problemaImage' src={`http://localhost:3000/problemas/${reclamation.imagem}`} 
+                    alt={`Imagem da rua ${reclamation.endereco} com o problema de ${reclamation.descricao}`} />
                   <figcaption>Imagem da rua {reclamation.endereco} com o problema de {reclamation.descricao}</figcaption>
                 </figure>
               </div>
