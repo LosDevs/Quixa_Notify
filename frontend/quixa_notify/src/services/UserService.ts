@@ -90,7 +90,7 @@ export const deletarProblema = async (id: string) => {
 
 const setAuthToken = (token: String) => {
   if (token) {
-    api.defaults.headers.common['Authorization'] = `${token}`;
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   } else {
     delete api.defaults.headers.common['Authorization'];
   }
